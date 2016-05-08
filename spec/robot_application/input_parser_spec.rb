@@ -1,80 +1,45 @@
 require "spec_helper"
 
 RSpec.describe RobotApplication::InputParser do
-  let(:input_parser) { described_class.new }
+  let(:input_parser) { described_class.new(command_factory: command_factory) }
+  let(:command_factory) { double "command_factory", build: nil }
 
   describe "#parse" do
     let(:parse) { input_parser.parse(input_string: input_string) }
 
-    context "when input is a PLACE command" do
-      let(:input_string) { "PLACE 1,2, NORTH" }
+    context "when input is a command type with no arguments" do
+      let(:input_string) { "MOVE" }
 
-      it "parses the type of the input correctly" do
-        expect(parse.type).to eq "PLACE"
-      end
-
-      it "parses the arguments of the input correctly" do
-        expect(parse.arguments.length).to eq 3
+      it "it parses the command type correctly" do
+        expect(command_factory).to receive(:build).with(type: "MOVE", arguments: [])
+        parse
       end
 
       context "and the input is not upper case" do
-        let(:input_string) { "place 1,2, north" }
+        let(:input_string) { "move" }
 
-        it "and the type of the input is upcased" do
-          expect(parse.type).to eq "PLACE"
-        end
-
-        it "and the facing direction is upcased" do
-          expect(parse.arguments[2]).to eq "NORTH"
+        it "it parses the command type correctly" do
+          expect(command_factory).to receive(:build).with(type: "MOVE", arguments: [])
+          parse
         end
       end
     end
 
-    context "when input is a MOVE command" do
-      let(:input_string) { "MOVE" }
+    context "when input is a command type with arguments" do
+      let(:input_string) { "PLACE 1,2,NORTH" }
 
-      it "parses the type of the input correctly" do
-        expect(parse.type).to eq "MOVE"
+      it "it parses the command type correctly" do
+        expect(command_factory).to receive(:build).with(type: "PLACE", arguments: ["1", "2", "NORTH"])
+        parse
       end
 
-      it "parses the arguments of the input correctly" do
-        expect(parse.arguments.length).to eq 0
-      end
-    end
+      context "and the input is not upper case" do
+        let(:input_string) { "place 1,2,north" }
 
-    context "when input is a LEFT command" do
-      let(:input_string) { "LEFT" }
-
-      it "parses the type of the input correctly" do
-        expect(parse.type).to eq "LEFT"
-      end
-
-      it "parses the arguments of the input correctly" do
-        expect(parse.arguments.length).to eq 0
-      end
-    end
-
-    context "when input is a RIGHT command" do
-      let(:input_string) { "RIGHT" }
-
-      it "parses the type of the input correctly" do
-        expect(parse.type).to eq "RIGHT"
-      end
-
-      it "parses the arguments of the input correctly" do
-        expect(parse.arguments.length).to eq 0
-      end
-    end
-
-    context "when input is a REPORT command" do
-      let(:input_string) { "REPORT" }
-
-      it "parses the type of the input correctly" do
-        expect(parse.type).to eq "REPORT"
-      end
-
-      it "parses the arguments of the input correctly" do
-        expect(parse.arguments.length).to eq 0
+        it "it parses the command type correctly" do
+          expect(command_factory).to receive(:build).with(type: "PLACE", arguments: ["1", "2", "NORTH"])
+          parse
+        end
       end
     end
   end
