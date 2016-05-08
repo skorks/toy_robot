@@ -1,42 +1,12 @@
+require "robot_application/command_factory/place_robot_command"
+require "robot_application/command_factory/move_robot_command"
+require "robot_application/command_factory/turn_left_robot_command"
+require "robot_application/command_factory/turn_right_robot_command"
+require "robot_application/command_factory/report_robot_command"
+require "robot_application/command_factory/null_robot_command"
+
 module RobotApplication
   class CommandFactory
-    class RobotCommand
-      attr_reader :type, :arguments
-
-      def initialize(type:, arguments: [])
-        @type = type
-        @arguments = arguments
-      end
-
-      def execute(robot:, table:)
-        raise Error.new("Base command #{self.class.name} should not be used directly")
-      end
-    end
-    class PlaceRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-    class MoveRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-    class TurnLeftRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-    class TurnRightRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-    class ReportRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-    class NullRobotCommand < RobotCommand
-      def execute(robot:, table:)
-      end
-    end
-
     # make sure we keep the keys as strings by using the hashrocket syntax
     COMMAND_MAPPING = {
       "PLACE" => PlaceRobotCommand,
