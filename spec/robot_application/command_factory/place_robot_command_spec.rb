@@ -56,6 +56,15 @@ RSpec.describe RobotApplication::CommandFactory::PlaceRobotCommand do
       end
     end
 
+    context "when facing direction contains extraneous whitespace" do
+      let(:facing) { "SOUTH     " }
+
+      it "sets the position on the robot" do
+        expect(robot).to receive(:set_position).with(x: x.to_i, y: y.to_i, facing: RobotApplication::FacingDirection::SOUTH)
+        execute
+      end
+    end
+
     context "when x is out of bounds for the table" do
       let(:x) { width }
 

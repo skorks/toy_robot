@@ -39,7 +39,7 @@ module RobotApplication
       end
 
       def facing_direction
-        @facing_direction ||= arguments[2]
+        @facing_direction ||= arguments[2].strip
       end
     end
   end
