@@ -14,6 +14,10 @@ module RobotApplication
         direction_mapping[direction_string]
       end
 
+      def name_for(direction_value)
+        inverted_direction_mapping[direction_value]
+      end
+
       private
 
       def direction_mapping
@@ -23,6 +27,10 @@ module RobotApplication
           "SOUTH" => SOUTH,
           "WEST" => WEST,
         }
+      end
+
+      def inverted_direction_mapping
+        @inverted_direction_mapping ||= direction_mapping.invert
       end
     end
   end
