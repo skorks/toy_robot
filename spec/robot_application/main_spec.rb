@@ -35,7 +35,7 @@ RSpec.describe RobotApplication::Main do
     end
 
     it "renders the table" do
-      expect(table_renderer).to receive(:render).with(table)
+      expect(table_renderer).to receive(:render).with(table: table, robot: robot)
       main.execute
     end
   end
