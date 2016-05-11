@@ -29,4 +29,12 @@ RSpec.describe RobotApplication::Robot do
       end
     end
   end
+
+  describe "#set_facing" do
+    let(:set_facing) { robot.set_facing(facing) }
+
+    it "has the correct facing direction" do
+      expect(set_facing.facing).to eq facing
+    end
+  end
 end

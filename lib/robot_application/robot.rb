@@ -14,5 +14,11 @@ module RobotApplication
       @facing = facing
       self
     end
+
+    # no named arguments, must be called with argument
+    def set_facing(facing)
+      @facing = facing
+      self
+    end
   end
 end
