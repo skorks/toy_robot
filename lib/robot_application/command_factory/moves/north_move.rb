@@ -9,7 +9,7 @@ module RobotApplication
         end
 
         def execute
-          robot.set_position(x: robot.x, y: robot.y + 1)
+          robot.set_position(x: robot.x, y: robot.y + 1, facing: robot.facing)
         end
       end
     end

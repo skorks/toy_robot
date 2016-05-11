@@ -34,7 +34,7 @@ RSpec.describe RobotApplication::CommandFactory::Moves::SouthMove do
     end
 
     it "decrements the robot's y coordinate" do
-      expect(robot).to receive(:set_position).with(x: x, y: y - 1)
+      expect(robot).to receive(:set_position).with(x: x, y: y - 1, facing: facing)
       move.execute
     end
   end

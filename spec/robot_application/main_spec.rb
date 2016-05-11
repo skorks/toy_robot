@@ -1,13 +1,17 @@
 require "spec_helper"
 
 RSpec.describe RobotApplication::Main do
-  let(:main) { described_class.new(table_width: width, table_height: height, input_reader: input_reader, input_parser: input_parser) }
+  let(:main) { described_class.new(table_width: width, table_height: height,
+    input_reader: input_reader,
+    input_parser: input_parser,
+    table_renderer: table_renderer) }
   let(:width) { 7 }
   let(:height) { 8 }
   let(:input_reader) { [input_string1, input_string2] }
   let(:input_string1) { "input_string1" }
   let(:input_string2) { "input_string2" }
   let(:input_parser) { double "input_parser", parse: command }
+  let(:table_renderer) { double "table_renderer", render: nil }
   let(:command) {double "command", execute: nil}
 
   let(:robot) {double "robot"}
@@ -27,6 +31,11 @@ RSpec.describe RobotApplication::Main do
 
     it "executes a command with robot and table for every input" do
       expect(command).to receive(:execute).with(robot: robot, table: table).twice
+      main.execute
+    end
+
+    it "renders the table" do
+      expect(table_renderer).to receive(:render).with(table)
       main.execute
     end
   end

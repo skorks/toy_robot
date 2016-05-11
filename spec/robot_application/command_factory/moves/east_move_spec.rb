@@ -34,7 +34,7 @@ RSpec.describe RobotApplication::CommandFactory::Moves::EastMove do
     end
 
     it "increments the robot's x coordinate" do
-      expect(robot).to receive(:set_position).with(x: x + 1, y: y)
+      expect(robot).to receive(:set_position).with(x: x + 1, y: y, facing: robot.facing)
       move.execute
     end
   end
