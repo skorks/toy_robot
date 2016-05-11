@@ -11,7 +11,7 @@ module RobotApplication
       end
 
       def execute(robot:, table:)
-        raise Error.new("Base command #{self.class.name} should not be used directly")
+        raise Error.new("Base class #{self.class.name} should not be used directly")
       end
     end
   end
