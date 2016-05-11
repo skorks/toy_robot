@@ -1,0 +1,26 @@
+report
+move
+place 1,1,north
+foobar
+report
+move
+move
+report
+right
+report
+move
+move
+report
+place 0,0,east
+move
+report
+place 0,0,south
+report
+move
+move
+report
+left
+left
+report
+move
+report
