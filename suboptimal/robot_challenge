@@ -1,0 +1,216 @@
+#!/usr/bin/env ruby
+
+module RobotApplication
+  module FacingDirection
+    DIRECTIONS = {
+      north: 0,
+      east: 1,
+      south: 2,
+      west: 3
+    }.freeze
+
+    class << self
+      def value_for(direction)
+        DIRECTIONS[direction.downcase.to_sym]
+      end
+      alias_method :[], :value_for
+
+      def valid?(direction)
+        !!value_for(direction)
+      end
+
+      def name_for(direction_value)
+        value = inverted_directions[direction_value]
+        value ? value.to_s.upcase : nil
+      end
+
+      private
+
+      def inverted_directions
+        @inverted_directions ||= DIRECTIONS.invert
+      end
+    end
+  end
+
+  class Table
+    attr_reader :width, :height
+
+    def initialize(width:, height:)
+      @width = width
+      @height = height
+    end
+
+    def contains_coordinates?(x:, y:)
+      x >= 0 &&
+      x < width &&
+      y >= 0 &&
+      y < height
+    end
+  end
+
+  class Robot
+    attr_reader :x, :y, :direction
+
+    def initialize
+      @x = nil
+      @y = nil
+      @direction = nil
+      @table = nil
+    end
+
+    def update_position(x: nil, y: nil, direction: nil, table: nil)
+      @x = x || @x
+      @y = y || @y
+      @direction = direction || @direction
+      @table = table || @table
+    end
+
+    def idle?
+      @table.nil?
+    end
+  end
+
+  class StdinInputReader
+    include Enumerable
+
+    attr_reader :input_io
+
+    def initialize(input_io: $stdin)
+      @input_io = input_io
+    end
+
+    def each(&block)
+      while(line = input_io.gets) do
+        yield(line.chomp)
+      end
+    end
+  end
+
+  class InputParser
+    def parse(input_string:)
+      input_tokens = input_string.downcase.split(/\s+/, 2)
+      type = (input_tokens[0] || "").to_sym
+      arguments = (input_tokens[1] || "").split(/,\s*/)
+      [{type: type, arguments: arguments}]
+    end
+  end
+
+  class RobotBehaviourEngine
+    attr_reader :robot, :table
+
+    def initialize(robot:, table:)
+      @robot = robot
+      @table = table
+    end
+
+    def execute(command: {})
+      type = command[:type]
+      arguments = command[:arguments] || []
+
+      if respond_to?(type)
+        public_send(type, arguments: arguments)
+      else
+        $stderr.puts "Invalid command given #{type.to_s.upcase}"
+      end
+    end
+
+    def place(arguments: [])
+      x = to_integer(arguments[0])
+      y = to_integer(arguments[1])
+      direction_string = arguments[2].strip
+
+      if table.contains_coordinates?(x: x, y: y) && FacingDirection.valid?(direction_string)
+        robot.update_position(
+          x: x,
+          y: y,
+          direction: FacingDirection[direction_string],
+          table: table,
+        )
+      else
+        $stderr.puts "Invalid coordinates or facing direction given for PLACE command"
+      end
+    end
+
+    def left(arguments: [])
+      unless robot.idle?
+        robot.update_position(direction: (robot.direction - 1)%4)
+      end
+    end
+
+    def right(arguments: [])
+      unless robot.idle?
+        robot.update_position(direction: (robot.direction + 1)%4)
+      end
+    end
+
+    def report(arguments: [])
+      unless robot.idle?
+        $stdout.puts "#{robot.x},#{robot.y},#{FacingDirection.name_for(robot.direction)}"
+      end
+    end
+
+    def move(arguments: [])
+      unless robot.idle?
+        move_direction = FacingDirection.name_for(robot.direction).downcase.to_sym
+        if respond_to?(move_direction, true)
+          send(move_direction, arguments: arguments)
+        else
+          $stderr.puts "Unknown move direction: #{move_direction}"
+        end
+      end
+    end
+
+    private
+
+    def north(arguments: [])
+      new_y = robot.y + 1
+      if table.contains_coordinates?(x: robot.x, y: new_y) && !robot.idle?
+        robot.update_position(y: new_y)
+      end
+    end
+
+    def south(arguments: [])
+      new_y = robot.y - 1
+      if table.contains_coordinates?(x: robot.x, y: new_y) && !robot.idle?
+        robot.update_position(y: new_y)
+      end
+    end
+
+    def east(arguments: [])
+      new_x = robot.x + 1
+      if table.contains_coordinates?(x: new_x, y: robot.y) && !robot.idle?
+        robot.update_position(x: new_x)
+      end
+    end
+
+    def west(arguments: [])
+      new_x = robot.x - 1
+      if table.contains_coordinates?(x: new_x, y: robot.y) && !robot.idle?
+        robot.update_position(x: new_x)
+      end
+    end
+
+    def to_integer(value)
+      Integer(value)
+    rescue
+      -1
+    end
+  end
+
+  def self.execute
+    input_reader = StdinInputReader.new
+    input_parser = InputParser.new
+    robot = Robot.new
+    table = Table.new(width: 5, height: 5)
+    robot_engine = RobotBehaviourEngine.new(robot: robot, table: table)
+
+    input_reader.each do |input_string|
+      commands = input_parser.parse(input_string: input_string)
+      commands.each do |command|
+        robot_engine.execute(command: command)
+      end
+    end
+  end
+end
+
+RobotApplication.execute
