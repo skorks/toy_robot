@@ -11,7 +11,7 @@ RSpec.describe RobotApplication::InputParser do
       let(:input_string) { "MOVE" }
 
       it "it parses the command type correctly" do
-        expect(command_factory).to receive(:build).with(type: "MOVE", arguments: [])
+        expect(command_factory).to receive(:build).with(type: :move, arguments: [])
         parse
       end
 
@@ -19,7 +19,7 @@ RSpec.describe RobotApplication::InputParser do
         let(:input_string) { "move" }
 
         it "it parses the command type correctly" do
-          expect(command_factory).to receive(:build).with(type: "MOVE", arguments: [])
+          expect(command_factory).to receive(:build).with(type: :move, arguments: [])
           parse
         end
       end
@@ -29,7 +29,7 @@ RSpec.describe RobotApplication::InputParser do
       let(:input_string) { "PLACE 1,2,NORTH" }
 
       it "it parses the command type correctly" do
-        expect(command_factory).to receive(:build).with(type: "PLACE", arguments: ["1", "2", "NORTH"])
+        expect(command_factory).to receive(:build).with(type: :place, arguments: ["1", "2", "north"])
         parse
       end
 
@@ -37,7 +37,7 @@ RSpec.describe RobotApplication::InputParser do
         let(:input_string) { "place 1,2,north" }
 
         it "it parses the command type correctly" do
-          expect(command_factory).to receive(:build).with(type: "PLACE", arguments: ["1", "2", "NORTH"])
+          expect(command_factory).to receive(:build).with(type: :place, arguments: ["1", "2", "north"])
           parse
         end
       end

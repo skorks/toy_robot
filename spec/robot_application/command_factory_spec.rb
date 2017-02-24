@@ -8,7 +8,7 @@ RSpec.describe RobotApplication::CommandFactory do
     let(:arguments) { [] }
 
     context "when type is a PLACE command" do
-      let(:type) { "PLACE" }
+      let(:type) { :place }
       let(:arguments) { "arguments" }
 
       it "returns the correct command type" do
@@ -21,7 +21,7 @@ RSpec.describe RobotApplication::CommandFactory do
     end
 
     context "when type is a MOVE command" do
-      let(:type) { "MOVE" }
+      let(:type) { :move }
 
       it "returns the correct command type" do
         expect(build.class).to eq RobotApplication::CommandFactory::MoveRobotCommand

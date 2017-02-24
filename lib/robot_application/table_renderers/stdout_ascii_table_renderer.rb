@@ -2,21 +2,19 @@ module RobotApplication
   class TableRenderers
     class StdoutAsciiTableRenderer
       def render(table:, robot:)
-        draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, facing: robot.facing)
-        unless table.containsRobot?
-          draw_idling_robot
-        end
+        draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, direction: robot.direction)
+        draw_idling_robot if robot.idle?
       end
 
       private
 
-      def draw_table(width:, height:, x: -1, y: -1, facing: FacingDirection::NORTH)
+      def draw_table(width:, height:, x: -1, y: -1, direction: FacingDirection[:north])
         (height-1).downto(0) do |row|
           draw_row_separator(width)
           0.upto(width-1) do |column|
             draw_column_separator
             if column == x && row == y
-              draw_robot_cell(facing: facing)
+              draw_robot_cell(direction: direction)
             else
               draw_empty_cell
             end
@@ -39,14 +37,14 @@ module RobotApplication
         print "   "
       end
 
-      def draw_robot_cell(facing: 0)
+      def draw_robot_cell(direction: 0)
         robot_char_mapping = {
-          FacingDirection::NORTH => "^",
-          FacingDirection::EAST => ">",
-          FacingDirection::SOUTH => "v",
-          FacingDirection::WEST => "<",
+          FacingDirection[:north] => "^",
+          FacingDirection[:east] => ">",
+          FacingDirection[:south] => "v",
+          FacingDirection[:west] => "<",
         }
-        print " #{robot_char_mapping[facing]} "
+        print " #{robot_char_mapping[direction]} "
       end
 
       def draw_idling_robot

@@ -1,24 +1,23 @@
 module RobotApplication
   class Robot
-    attr_reader :x, :y, :facing
+    attr_reader :x, :y, :direction
 
     def initialize
       @x = nil
       @y = nil
-      @facing = nil
+      @direction = nil
+      @table = nil
     end
 
-    def set_position(x:, y:, facing: FacingDirection::NORTH)
-      @x = x
-      @y = y
-      @facing = facing
-      self
+    def update_position(x: nil, y: nil, direction: nil, table: nil)
+      @x = x || @x
+      @y = y || @y
+      @direction = direction || @direction
+      @table = table || @table
     end
 
-    # no named arguments, must be called with argument
-    def set_facing(facing)
-      @facing = facing
-      self
+    def idle?
+      @table.nil?
     end
   end
 end

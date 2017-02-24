@@ -9,10 +9,10 @@ module RobotApplication
     end
 
     def parse(input_string:)
-      input_tokens = input_string.upcase.split(/\s+/, 2)
-      type = (input_tokens[0] || "")
+      input_tokens = input_string.downcase.split(/\s+/, 2)
+      type = (input_tokens[0] || "").to_sym
       arguments = (input_tokens[1] || "").split(/,\s*/)
-      command_factory.build(type: type, arguments: arguments)
+      [command_factory.build(type: type, arguments: arguments)]
     end
   end
 end

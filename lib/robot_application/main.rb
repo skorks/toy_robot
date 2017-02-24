@@ -21,10 +21,12 @@ module RobotApplication
 
     def execute
       input_reader.each do |input_string|
-        command = input_parser.parse(input_string: input_string)
-        command.execute(robot: robot, table: table)
-        # it's nice to have a visual representation
-        table_renderer.render(robot: robot, table: table)
+        commands = input_parser.parse(input_string: input_string)
+        commands.each do |command|
+          command.execute(robot: robot, table: table)
+          # it's nice to have a visual representation
+          table_renderer.render(robot: robot, table: table)
+        end
       end
     end
   end

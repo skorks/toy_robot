@@ -4,37 +4,67 @@ RSpec.describe RobotApplication::Robot do
   let(:robot) { described_class.new }
   let(:x) { 1 }
   let(:y) { 2 }
-  let(:facing) { RobotApplication::FacingDirection::NORTH }
+  let(:direction) { RobotApplication::FacingDirection[:north] }
+  let(:table) { double "table" }
 
-  describe "#set_position" do
-    let(:set_position) { robot.set_position(x: x, y: y, facing: facing) }
-
-    it "has the correct x position" do
-      expect(set_position.x).to eq x
+  describe "#update_position" do
+    before do
+      robot.update_position(
+        x: x,
+        y: y,
+        direction: direction,
+        table: table,
+      )
     end
 
-    it "has the correct y position" do
-      expect(set_position.y).to eq y
+    it "can update the x coordinate" do
+      expect(robot.x).to eq x
     end
 
-    it "has the correct facing direction" do
-      expect(set_position.facing).to eq facing
+    it "can update the y coordinate" do
+      expect(robot.y).to eq y
     end
 
-    context "when facing direction is not supplied" do
-      let(:set_position) { robot.set_position(x: x, y: y) }
+    it "can update the direction" do
+      expect(robot.direction).to eq direction
+    end
 
-      it "has the default facing direction" do
-        expect(set_position.facing).to eq RobotApplication::FacingDirection::NORTH
+    it "can update the table" do
+      expect(robot.instance_variable_get(:@table)).to eq table
+    end
+
+    context "when only some of the parameters are supplied" do
+      let(:new_x) { 200 }
+
+      before do
+        robot.update_position(x: new_x)
+      end
+
+      it "retains the old values for the other parameters" do
+        expect(robot.y).to eq y
+      end
+
+      it "sets the given parameters" do
+        expect(robot.x).to eq new_x
       end
     end
   end
 
-  describe "#set_facing" do
-    let(:set_facing) { robot.set_facing(facing) }
+  describe "#idle?" do
+    context "when robot is not aware of a table" do
+      it "is considered to be idle" do
+        expect(robot.idle?).to be_truthy
+      end
+    end
 
-    it "has the correct facing direction" do
-      expect(set_facing.facing).to eq facing
+    context "when robot is aware of a table" do
+      before do
+        robot.update_position(table: table)
+      end
+
+      it "is NOT considered to be idle" do
+        expect(robot.idle?).to be_falsy
+      end
     end
   end
 end

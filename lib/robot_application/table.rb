@@ -1,16 +1,17 @@
 module RobotApplication
   class Table
     attr_reader :width, :height
-    attr_accessor :robot
 
     def initialize(width:, height:)
       @width = width
       @height = height
-      @robot = nil
     end
 
-    def containsRobot?
-      @robot
+    def contains_coordinates?(x:, y:)
+      x >= 0 &&
+      x < width &&
+      y >= 0 &&
+      y < height
     end
   end
 end

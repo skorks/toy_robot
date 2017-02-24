@@ -4,12 +4,11 @@ module RobotApplication
   class CommandFactory
     class Moves
       class EastMove < DirectedMove
-        def permitted?
-          robot.x < table.width - 1
-        end
-
         def execute
-          robot.set_position(x: robot.x + 1, y: robot.y, facing: robot.facing)
+          new_x = robot.x + 1
+          if table.contains_coordinates?(x: new_x, y: robot.y)
+            robot.update_position(x: new_x)
+          end
         end
       end
     end

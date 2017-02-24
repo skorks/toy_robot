@@ -9,10 +9,6 @@ module RobotApplication
           @table = table
         end
 
-        def permitted?
-          raise Error.new("Base class #{self.class.name} should not be used directly")
-        end
-
         def execute
           raise Error.new("Base class #{self.class.name} should not be used directly")
         end

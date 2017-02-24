@@ -10,8 +10,8 @@ RSpec.describe RobotApplication::Main do
   let(:input_reader) { [input_string1, input_string2] }
   let(:input_string1) { "input_string1" }
   let(:input_string2) { "input_string2" }
-  let(:input_parser) { double "input_parser", parse: command }
-  let(:table_renderer) { double "table_renderer", render: nil }
+  let(:input_parser) { double "input_parser", parse: [command] }
+  let(:table_renderer) { RobotApplication::TableRenderers::NullTableRenderer.new }
   let(:command) {double "command", execute: nil}
 
   let(:robot) {double "robot"}
@@ -34,8 +34,8 @@ RSpec.describe RobotApplication::Main do
       main.execute
     end
 
-    it "renders the table" do
-      expect(table_renderer).to receive(:render).with(table: table, robot: robot)
+    it "renders the table for every input" do
+      expect(table_renderer).to receive(:render).with(table: table, robot: robot).twice
       main.execute
     end
   end

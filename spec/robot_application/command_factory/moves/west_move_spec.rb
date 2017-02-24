@@ -2,40 +2,40 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::CommandFactory::Moves::WestMove do
   let(:move) { described_class.new(robot: robot, table: table) }
-  let(:robot) { double "robot", x: x, y: y, facing: facing }
+  let(:robot) do
+    RobotApplication::Robot.new.tap do |robot|
+      robot.update_position(
+        x: x,
+        y: y,
+        direction: direction,
+        table: table,
+      )
+    end
+  end
   let(:x) { 1 }
   let(:y) { 2 }
-  let(:facing) { RobotApplication::FacingDirection::NORTH }
-  let(:table) { double "table", width: width, height: height }
+  let(:direction) { RobotApplication::FacingDirection[:west] }
+  let(:table) { RobotApplication::Table.new(width: width, height: height) }
   let(:width) { 5 }
   let(:height) { 6 }
 
-  describe "#permitted?" do
-    context "when robot is at the west edge" do
-      let(:x) { 0 }
-
-      it "return falsy" do
-        expect(move.permitted?).to be_falsy
-      end
-    end
-
-    context "when robot is NOT at the west edge" do
+  describe "#execute" do
+    context "when the robot is NOT already at the west edge" do
       let(:x) { 1 }
 
-      it "return truthy" do
-        expect(move.permitted?).to be_truthy
+      it "decrements the robot's x coordinate" do
+        move.execute
+        expect(robot.x).to eq (x - 1)
       end
     end
-  end
 
-  describe "#execute" do
-    before do
-      allow(robot).to receive(:set_position)
-    end
+    context "when the robot is already at the west edge" do
+      let(:x) { 0 }
 
-    it "decrements the robot's x coordinate" do
-      expect(robot).to receive(:set_position).with(x: x - 1, y: y, facing: robot.facing)
-      move.execute
+      it "does not decrement the robot's x coordinate" do
+        move.execute
+        expect(robot.x).to eq (x)
+      end
     end
   end
 end

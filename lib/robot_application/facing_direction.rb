@@ -1,36 +1,31 @@
 module RobotApplication
   module FacingDirection
-    NORTH = 0
-    EAST = 1
-    SOUTH = 2
-    WEST = 3
+    DIRECTIONS = {
+      north: 0,
+      east: 1,
+      south: 2,
+      west: 3
+    }.freeze
 
     class << self
-      def valid?(direction_string)
-        !!direction_mapping[direction_string]
+      def value_for(direction)
+        DIRECTIONS[direction.downcase.to_sym]
       end
+      alias_method :[], :value_for
 
-      def value_for(direction_string)
-        direction_mapping[direction_string]
+      def valid?(direction)
+        !!value_for(direction)
       end
 
       def name_for(direction_value)
-        inverted_direction_mapping[direction_value]
+        value = inverted_directions[direction_value]
+        value ? value.to_s.upcase : nil
       end
 
       private
 
-      def direction_mapping
-        @direction_mapping ||= {
-          "NORTH" => NORTH,
-          "EAST" => EAST,
-          "SOUTH" => SOUTH,
-          "WEST" => WEST,
-        }
-      end
-
-      def inverted_direction_mapping
-        @inverted_direction_mapping ||= direction_mapping.invert
+      def inverted_directions
+        @inverted_directions ||= DIRECTIONS.invert
       end
     end
   end

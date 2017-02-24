@@ -4,8 +4,8 @@ module RobotApplication
   class CommandFactory
     class TurnRightRobotCommand < RobotCommand
       def execute(robot:, table:)
-        if table.containsRobot?
-          robot.set_facing((robot.facing + 1)%4)
+        unless robot.idle?
+          robot.update_position(direction: (robot.direction + 1)%4)
         end
       end
     end

@@ -7,23 +7,23 @@ require "robot_application/command_factory/null_robot_command"
 
 module RobotApplication
   class CommandFactory
-    # make sure we keep the keys as strings by using the hashrocket syntax
     COMMAND_MAPPING = {
-      "PLACE" => PlaceRobotCommand,
-      "MOVE" => MoveRobotCommand,
-      "LEFT" => TurnLeftRobotCommand,
-      "RIGHT" => TurnRightRobotCommand,
-      "REPORT" => ReportRobotCommand,
+      place: PlaceRobotCommand,
+      move: MoveRobotCommand,
+      left: TurnLeftRobotCommand,
+      right: TurnRightRobotCommand,
+      report: ReportRobotCommand,
     }
 
     def build(type:, arguments: [])
-      command_class = COMMAND_MAPPING[type]
+      command_type_symbol = type.downcase.to_sym
+      command_class = COMMAND_MAPPING[command_type_symbol]
 
       if command_class
-        command_class.new(type: type, arguments: arguments)
+        command_class.new(type: command_type_symbol, arguments: arguments)
       else
         # we can invert this dependency if we want to test it, etc.
-        $stderr.puts "Invalid command given #{type}"
+        $stderr.puts "Invalid command given #{type.to_s.upcase}"
         NullRobotCommand.new(type: type, arguments: arguments)
       end
     end

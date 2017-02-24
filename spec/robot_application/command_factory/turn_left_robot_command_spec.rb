@@ -5,61 +5,68 @@ RSpec.describe RobotApplication::CommandFactory::TurnLeftRobotCommand do
   let(:type) { "LEFT" }
   let(:x) { "1" }
   let(:y) { "2" }
-  let(:facing) { "SOUTH" }
-  let(:robot) { double "robot", x: x, y: y, facing: RobotApplication::FacingDirection::value_for(facing) }
-  let(:table) { double "table", width: width, height: height, containsRobot?: containsRobot }
-  let(:containsRobot) { true }
+  let(:direction) { "SOUTH" }
+  let(:robot) do
+    double "robot", {
+      x: x,
+      y: y,
+      direction: RobotApplication::FacingDirection.value_for(direction),
+      idle?: robot_idle,
+    }
+  end
+  let(:table) { double "table", width: width, height: height }
   let(:width) { 5 }
   let(:height) { 6 }
+  let(:robot_idle) { false }
 
   describe "#execute" do
     let(:execute) { command.execute(robot: robot, table: table) }
 
     before do
-      allow(robot).to receive(:set_facing)
+      allow(robot).to receive(:update_position)
     end
 
     context "when facing NORTH" do
-      let(:facing) { "NORTH" }
+      let(:direction) { "NORTH" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:set_facing).with(RobotApplication::FacingDirection::WEST)
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:west])
         execute
       end
     end
 
     context "when facing WEST" do
-      let(:facing) { "WEST" }
+      let(:direction) { "WEST" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:set_facing).with(RobotApplication::FacingDirection::SOUTH)
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:south])
         execute
       end
     end
 
     context "when facing SOUTH" do
-      let(:facing) { "SOUTH" }
+      let(:direction) { "SOUTH" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:set_facing).with(RobotApplication::FacingDirection::EAST)
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:east])
         execute
       end
     end
 
     context "when facing EAST" do
-      let(:facing) { "EAST" }
+      let(:direction) { "EAST" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:set_facing).with(RobotApplication::FacingDirection::NORTH)
+        expect(robot).to receive(:update_position).with(direction:   RobotApplication::FacingDirection[:north])
         execute
       end
     end
 
     context "when robot is not on the table" do
-      let(:containsRobot) { false }
+      let(:robot_idle) { true }
 
       it "doesn't try to set the facing direction" do
-        expect(robot).to_not receive(:set_facing)
+        expect(robot).to_not receive(:update_position)
         execute
       end
     end

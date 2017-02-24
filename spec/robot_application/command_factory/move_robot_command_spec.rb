@@ -5,20 +5,27 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
   let(:type) { "LEFT" }
   let(:x) { "1" }
   let(:y) { "2" }
-  let(:facing) { "SOUTH" }
-  let(:robot) { double "robot", x: x, y: y, facing: RobotApplication::FacingDirection::value_for(facing) }
-  let(:table) { double "table", width: width, height: height, containsRobot?: containsRobot }
-  let(:containsRobot) { true }
+  let(:direction) { "SOUTH" }
+  let(:robot) do
+    double "robot", {
+      x: x,
+      y: y,
+      direction: RobotApplication::FacingDirection.value_for(direction),
+      idle?: robot_idle,
+    }
+  end
+  let(:table) { double "table", width: width, height: height }
   let(:width) { 5 }
   let(:height) { 6 }
+  let(:robot_idle) { false }
 
   describe "#execute" do
     let(:execute) { command.execute(robot: robot, table: table) }
 
-    let(:north_move) { double "north_move", permitted?: true, execute: nil }
-    let(:east_move) { double "east_move", permitted?: true, execute: nil }
-    let(:south_move) { double "south_move", permitted?: true, execute: nil }
-    let(:west_move) { double "west_move", permitted?: true, execute: nil }
+    let(:north_move) { double "north_move", execute: nil }
+    let(:east_move) { double "east_move", execute: nil }
+    let(:south_move) { double "south_move", execute: nil }
+    let(:west_move) { double "west_move", execute: nil }
 
     before do
       allow(RobotApplication::CommandFactory::Moves::NorthMove).to receive(:new).and_return(north_move)
@@ -28,7 +35,7 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     end
 
     context "when facing NORTH" do
-      let(:facing) { "NORTH" }
+      let(:direction) { "NORTH" }
 
       it "performs a north move" do
         expect(north_move).to receive(:execute)
@@ -37,7 +44,7 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     end
 
     context "when facing WEST" do
-      let(:facing) { "WEST" }
+      let(:direction) { "WEST" }
 
       it "performs a west move" do
         expect(west_move).to receive(:execute)
@@ -46,7 +53,7 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     end
 
     context "when facing SOUTH" do
-      let(:facing) { "SOUTH" }
+      let(:direction) { "SOUTH" }
 
       it "performs a south move" do
         expect(south_move).to receive(:execute)
@@ -55,7 +62,7 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     end
 
     context "when facing EAST" do
-      let(:facing) { "EAST" }
+      let(:direction) { "EAST" }
 
       it "performs a east move" do
         expect(east_move).to receive(:execute)
@@ -64,7 +71,7 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     end
 
     context "when robot is not on the table" do
-      let(:containsRobot) { false }
+      let(:robot_idle) { true }
 
       it "doesn't try to move the robot" do
         expect(north_move).to_not receive(:execute)

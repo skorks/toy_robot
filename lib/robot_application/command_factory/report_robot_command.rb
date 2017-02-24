@@ -4,8 +4,8 @@ module RobotApplication
   class CommandFactory
     class ReportRobotCommand < RobotCommand
       def execute(robot:, table:)
-        if table.containsRobot?
-          $stdout.puts "#{robot.x},#{robot.y},#{FacingDirection.name_for(robot.facing)}"
+        unless robot.idle?
+          $stdout.puts "#{robot.x},#{robot.y},#{FacingDirection.name_for(robot.direction)}"
         end
       end
     end
