@@ -2,26 +2,29 @@ module RobotApplication
   class TableRenderers
     class StdoutAsciiTableRenderer
       def render(table:, robot:)
-        draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, direction: robot.direction)
+        p table
+        draw_table(table: table, x: robot.x, y: robot.y, direction: robot.direction)
         draw_idling_robot if robot.idle?
       end
 
       private
 
-      def draw_table(width:, height:, x: -1, y: -1, direction: FacingDirection[:north])
-        (height-1).downto(0) do |row|
-          draw_row_separator(width)
-          0.upto(width-1) do |column|
+      def draw_table(table:, x: -1, y: -1, direction: FacingDirection[:north])
+        (table.height-1).downto(0) do |row|
+          draw_row_separator(table.width)
+          0.upto(table.width-1) do |column|
             draw_column_separator
             if column == x && row == y
               draw_robot_cell(direction: direction)
+            elsif table.has_obstacle_at?(x: column, y: row)
+              draw_obstacle_cell
             else
               draw_empty_cell
             end
           end
           draw_column_separator(newline: true)
         end
-        draw_row_separator(width)
+        draw_row_separator(table.width)
       end
 
       def draw_row_separator(width)
@@ -35,6 +38,10 @@ module RobotApplication
 
       def draw_empty_cell
         print "   "
+      end
+
+      def draw_obstacle_cell
+        print " * "
       end
 
       def draw_robot_cell(direction: 0)

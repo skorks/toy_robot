@@ -6,7 +6,7 @@ module RobotApplication
       class WestMove < DirectedMove
         def execute
           new_x = robot.x - 1
-          if table.contains_coordinates?(x: new_x, y: robot.y)
+          if table.coordinates_empty?(x: new_x, y: robot.y)
             robot.update_position(x: new_x)
           end
         end

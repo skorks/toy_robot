@@ -5,7 +5,9 @@ module RobotApplication
   class CommandFactory
     class PlaceRobotCommand < RobotCommand
       def execute(robot:, table:)
-        if table.contains_coordinates?(x: x, y: y) && FacingDirection.valid?(direction)
+        if table.contains_coordinates?(x: x, y: y) &&
+          FacingDirection.valid?(direction) &&
+          !table.has_obstacle_at?(x: x, y: y)
           robot.update_position(
             x: x,
             y: y,
