@@ -12,11 +12,11 @@ module RobotApplication
       end
 
       def width
-        Integer(options[:width] || 5)
+        Integer(options[:width] || 20)
       end
 
       def height
-        Integer(options[:height] || 5)
+        Integer(options[:height] || 20)
       end
 
       def renderer

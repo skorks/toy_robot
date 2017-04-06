@@ -4,6 +4,7 @@ require "robot_application/command_factory/turn_left_robot_command"
 require "robot_application/command_factory/turn_right_robot_command"
 require "robot_application/command_factory/report_robot_command"
 require "robot_application/command_factory/null_robot_command"
+require "robot_application/command_factory/goto_robot_command"
 
 module RobotApplication
   class CommandFactory
@@ -13,6 +14,7 @@ module RobotApplication
       left: TurnLeftRobotCommand,
       right: TurnRightRobotCommand,
       report: ReportRobotCommand,
+      goto: GotoRobotCommand,
     }
 
     def build(type:, arguments: [])

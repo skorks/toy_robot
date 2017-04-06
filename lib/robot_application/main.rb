@@ -9,7 +9,8 @@ module RobotApplication
     attr_reader :input_reader, :input_parser, :table_renderer, :robot, :table
 
     def initialize(table_width: 5, table_height: 5,
-      obstacle_coordinates: [[1, 1], [4, 4]],
+      # obstacle_coordinates: [[1, 1], [4, 4]],
+      obstacle_coordinates: [[1, 1], [4, 4], [0, 1]],
       input_reader: StdinInputReader.new,
       input_parser: InputParser.new,
       table_renderer: TableRenderers::NullTableRenderer.new)
