@@ -1,13 +1,14 @@
 # Robot Challenge
 
+The description of the problem can be found in [PROBLEM.md](PROBLEM.md).
+
+## Usage
 The executable script is `bin/robot_challenge`.
 
 If you want to run tests you can `bundle exec rspec spec` or `bundle exec rake spec`.
 
 This repo is built like a gem, so `bundle install` will bring in dependencies, the only dependencies are `rake` and `rspec`
 (and `bundler`), there are no runtime dependencies (this is by design).
-
-## Usage
 
 You can do `bin/robot_challenge -h` and it should print out some info for you.
 
