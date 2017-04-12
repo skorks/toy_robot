@@ -12,14 +12,21 @@ module RobotApplication
           @table = table
         end
 
-# - is right
-# + is left
         def turn(desired_facing:)
-          # result = robot.direction - desired_facing
-          # result =
-          while robot.direction != desired_facing
-            TurnLeftRobotCommand.new(type: :turn_left).execute(robot: robot, table: table)
-            p "LEFT"
+          turn_count = (robot.direction - desired_facing).abs
+          return if turn_count == 0
+          opposite_turn_count = FacingDirection::DIRECTIONS.keys.count - turn_count
+          turn_direction = (robot.direction - desired_facing)/turn_count
+          opposite_turn_direction = -1 * turn_direction
+          turn = [[turn_count, turn_direction], [opposite_turn_count, opposite_turn_direction]].min_by { |v| v[0] }
+          turn[0].times do
+            if turn[1] < 0
+              TurnRightRobotCommand.new(type: :turn_right).execute(robot: robot, table: table)
+              p "RIGHT"
+            else
+              TurnLeftRobotCommand.new(type: :turn_left).execute(robot: robot, table: table)
+              p "LEFT"
+            end
           end
         end
 
