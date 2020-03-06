@@ -1,6 +1,6 @@
 module RobotApplication
-  class TableRenderers
-    class StdoutAsciiTableRenderer
+  class TableRenderer
+    class StdoutAscii
       def render(table:, robot:)
         draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, direction: robot.direction)
         draw_idling_robot if robot.idle?
