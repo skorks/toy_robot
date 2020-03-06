@@ -1,18 +1,16 @@
+# frozen_string_literal: true
+
 module RobotApplication
   class Robot
-    attr_reader :x, :y, :direction
+    attr_reader :position
 
     def initialize
-      @x = nil
-      @y = nil
-      @direction = nil
+      @position = nil
       @table = nil
     end
 
-    def update_position(x: nil, y: nil, direction: nil, table: nil)
-      @x = x || @x
-      @y = y || @y
-      @direction = direction || @direction
+    def update_position(position: nil, table: nil)
+      @position = position || @position
       @table = table || @table
     end
 

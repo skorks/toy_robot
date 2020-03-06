@@ -1,17 +1,25 @@
+# frozen_string_literal: true
+
 module RobotApplication
-  class TableRenderers
-    class StdoutAsciiTableRenderer
+  class TableRenderer
+    class StdoutAscii
       def render(table:, robot:)
-        draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, direction: robot.direction)
+        draw_table(
+          width: table.width, 
+          height: table.height, 
+          x: robot.x, 
+          y: robot.y, 
+          direction: robot.direction,
+        )
         draw_idling_robot if robot.idle?
       end
 
       private
 
       def draw_table(width:, height:, x: -1, y: -1, direction: FacingDirection[:north])
-        (height-1).downto(0) do |row|
+        (height - 1).downto(0) do |row|
           draw_row_separator(width)
-          0.upto(width-1) do |column|
+          0.upto(width - 1) do |column|
             draw_column_separator
             if column == x && row == y
               draw_robot_cell(direction: direction)
@@ -25,7 +33,7 @@ module RobotApplication
       end
 
       def draw_row_separator(width)
-        puts "-" * (width+1+(width*3))
+        puts "-" * (width + 1 + (width * 3))
       end
 
       def draw_column_separator(newline: false)

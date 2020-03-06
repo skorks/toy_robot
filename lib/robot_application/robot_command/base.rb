@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "robot_application/error"
 
 module RobotApplication
-  class CommandFactory
-    class RobotCommand
+  module RobotCommand
+    class Base
       attr_reader :type, :arguments
 
       def initialize(type:, arguments: [])

@@ -1,31 +1,27 @@
-require "robot_application/command_factory/place_robot_command"
-require "robot_application/command_factory/move_robot_command"
-require "robot_application/command_factory/turn_left_robot_command"
-require "robot_application/command_factory/turn_right_robot_command"
-require "robot_application/command_factory/report_robot_command"
-require "robot_application/command_factory/null_robot_command"
+# frozen_string_literal: true
+
+require "robot_application/robot_command/place"
+require "robot_application/robot_command/move"
+require "robot_application/robot_command/left"
+require "robot_application/robot_command/right"
+require "robot_application/robot_command/report"
+require "robot_application/robot_command/null"
 
 module RobotApplication
   class CommandFactory
     COMMAND_MAPPING = {
-      place: PlaceRobotCommand,
-      move: MoveRobotCommand,
-      left: TurnLeftRobotCommand,
-      right: TurnRightRobotCommand,
-      report: ReportRobotCommand,
+      place: ::RobotApplication::RobotCommand::Place,
+      move: ::RobotApplication::RobotCommand::Move,
+      left: ::RobotApplication::RobotCommand::Left,
+      right: ::RobotApplication::RobotCommand::Right,
+      report: ::RobotApplication::RobotCommand::Report,
     }
 
     def build(type:, arguments: [])
       command_type_symbol = type.downcase.to_sym
-      command_class = COMMAND_MAPPING[command_type_symbol]
-
-      if command_class
-        command_class.new(type: command_type_symbol, arguments: arguments)
-      else
-        # we can invert this dependency if we want to test it, etc.
-        $stderr.puts "Invalid command given #{type.to_s.upcase}"
-        NullRobotCommand.new(type: type, arguments: arguments)
-      end
+      command_class = COMMAND_MAPPING[command_type_symbol] || 
+        ::RobotApplication::RobotCommand::Null.new(type: type, arguments: arguments)
+      command_class.new(type: command_type_symbol, arguments: arguments)
     end
   end
 end
