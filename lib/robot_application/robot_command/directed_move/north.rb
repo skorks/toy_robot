@@ -6,8 +6,8 @@ module RobotApplication
   module RobotCommand
     module DirectedMove
       class North < Base
-        def new_coordinates
-          { x: robot.x, y: robot.y + 1 }
+        def new_position
+          @new_position = robot.position.clone.increment_cell(y: 1)
         end
       end
     end

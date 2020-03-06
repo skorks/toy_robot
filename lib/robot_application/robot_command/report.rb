@@ -7,7 +7,8 @@ module RobotApplication
     class Report < Base
       def execute(robot:, table:)
         return if robot.idle?
-        $stdout.puts "#{robot.x},#{robot.y},#{FacingDirection.name_for(robot.direction)}"
+
+        $stdout.puts robot.position.to_s
       end
     end
   end

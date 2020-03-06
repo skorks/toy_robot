@@ -12,12 +12,12 @@ module RobotApplication
         end
 
         def execute
-          return unless table.contains_coordinates?(**new_coordinates)
-          robot.update_position(**new_coordinates)
+          return unless table.contains_cell?(cell: new_position.cell)
+          robot.update_position(position: new_position)
         end
 
-        def new_coordinates
-          { x: robot.x, y: robot.y }
+        def new_position
+          @new_position = robot.position
         end
       end
     end

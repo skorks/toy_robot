@@ -12,6 +12,7 @@ module RobotApplication
     def update_position(position: nil, table: nil)
       @position = position || @position
       @table = table || @table
+      self
     end
 
     def idle?
