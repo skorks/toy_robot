@@ -2,21 +2,21 @@
 
 module RobotApplication
   class Robot
-    attr_reader :position
+    attr_reader :position, :direction
 
     def initialize
       @position = nil
-      @table = nil
+      @direction = nil
     end
 
-    def update_position(position: nil, table: nil)
+    def update!(position: nil, direction: nil)
       @position = position || @position
-      @table = table || @table
+      @direction = direction || @direction
       self
     end
 
     def idle?
-      @table.nil?
+      position.nil? || direction.nil?
     end
   end
 end

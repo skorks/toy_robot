@@ -11,11 +11,11 @@ module RobotApplication
       @height = Utils::Integer.parse(value: height, default: 0)
     end
 
-    def contains_cell?(cell:)
-      (0...width).cover?(cell.x) && (0...height).cover?(cell.y)
+    def contains_position?(position:)
+      (0...width).cover?(position.x) && (0...height).cover?(position.y)
     end
 
-    class Cell 
+    class Position 
       attr_reader :x, :y
 
       def initialize(x:, y:)
@@ -23,37 +23,16 @@ module RobotApplication
         @y = y
       end
 
+      def increment(x: 0, y: 0)
+        self.class.new(x: cell.x + x, y: cell.y + y)
+      end
+
       def clone
-        self.class.new(x: x, y: y)
+        increment(x: 0, y: 0)
       end
 
       def to_s
         "#{x},#{y}"
-      end
-    end
-
-    class Position 
-      attr_reader :cell, :direction
-
-      def initialize(cell:, direction:)
-        @cell = cell
-        @direction = direction
-      end
-
-      def clone
-        self.class.new(
-          cell: cell.clone,
-          direction: direction.clone,
-        )
-      end
-
-      def increment_cell(x: 0, y: 0)
-        @cell = Table::Cell.new(x: cell.x + x, y: cell.y + y)
-        self
-      end
-
-      def to_s
-        "#{cell.to_s},#{FacingDirection.name_for(direction)}"
       end
     end
   end

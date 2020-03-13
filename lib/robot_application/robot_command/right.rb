@@ -8,10 +8,7 @@ module RobotApplication
       def execute(robot:, table:)
         return if robot.idle?
 
-        robot.update_position(position: Table::Position.new(
-          cell: robot.position.cell,
-          direction: (robot.position.direction + 1) % 4,
-        ))
+        robot.update!(direction: turning_strategy.new(starting_direction: 90).clockwise)
       end
     end
   end

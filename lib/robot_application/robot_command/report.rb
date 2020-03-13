@@ -8,7 +8,7 @@ module RobotApplication
       def execute(robot:, table:)
         return if robot.idle?
 
-        $stdout.puts robot.position.to_s
+        $stdout.puts "#{robot.position.to_s},#{compass.name_for(angle: robot.direction)}"
       end
     end
   end

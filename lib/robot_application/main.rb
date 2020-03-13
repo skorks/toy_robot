@@ -13,8 +13,13 @@ module RobotApplication
       table_width:, 
       table_height:,
       input_reader: InputReader::Stdin.new,
-      input_parser: InputParser::TextCommand.new,
-      table_renderer:
+      input_parser: InputParser::TextCommand.new(
+        command_factory: CommandFactory.new(
+          turning_strategy: TurningStrategy::RightAngle,
+          named_directions: NamedDirection::Container::Default
+        )
+      ),
+      table_renderer: TableRenderer::Factory.new.build(type: :null)
     )
       @robot = Robot.new
       @table = Table.new(width: table_width, height: table_height)

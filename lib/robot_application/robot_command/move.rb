@@ -15,7 +15,7 @@ module RobotApplication
         # classes that implement direction moves, could use a lookup table
         # similar to what we do in CommandFactory, if we want complete
         # control of class names
-        class_prefix = FacingDirection.name_for(robot.position.direction).downcase.capitalize
+        class_prefix = compass.name_for(angle: robot.direction).downcase.capitalize
         class_name = RobotApplication::RobotCommand::DirectedMove::const_get(class_prefix.to_s)
         class_name.new(robot: robot, table: table).execute
       end

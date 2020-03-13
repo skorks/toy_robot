@@ -15,7 +15,7 @@ module RobotApplication
       end
 
       def build(type:)
-        (MAPPING[type.to_sym] || MAPPING[:null]).new
+        (MAPPING[type.downcase.to_sym] || MAPPING[:null]).new
       end
     end
   end
