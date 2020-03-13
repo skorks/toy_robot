@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+require "robot_application/table_renderer/stdout_ascii"
+require "robot_application/table_renderer/null"
+
 module RobotApplication
   module TableRenderer
     class Factory
+      DEFAULT_RENDERER_KEY = :null
       MAPPING = {
         ascii: TableRenderer::StdoutAscii,
-        null: TableRenderer::Null,
+        DEFAULT_RENDERER_KEY => TableRenderer::Null,
       }.freeze
 
       class << self

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RobotApplication
-  class TableRenderer
+  module TableRenderer
     class Null
       def render(table:, robot:); end
     end

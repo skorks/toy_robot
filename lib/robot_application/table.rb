@@ -4,6 +4,9 @@ require "robot_application/utils/integer"
 
 module RobotApplication
   class Table
+    DEFAULT_WIDTH = 5
+    DEFAULT_HEIGHT = 5
+
     attr_reader :width, :height
 
     def initialize(width:, height:)

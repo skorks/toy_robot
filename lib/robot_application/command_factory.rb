@@ -10,18 +10,29 @@ require "robot_application/robot_command/null"
 module RobotApplication
   class CommandFactory
     COMMAND_MAPPING = {
-      place: ::RobotApplication::RobotCommand::Place,
-      move: ::RobotApplication::RobotCommand::Move,
-      left: ::RobotApplication::RobotCommand::Left,
-      right: ::RobotApplication::RobotCommand::Right,
-      report: ::RobotApplication::RobotCommand::Report,
+      place: RobotCommand::Place,
+      move: RobotCommand::Move,
+      left: RobotCommand::Left,
+      right: RobotCommand::Right,
+      report: RobotCommand::Report,
     }.freeze
+
+    attr_reader :turning_strategy, :named_directions
+
+    def initialize(turning_strategy:, named_directions:)
+      @turning_strategy = turning_strategy
+      @named_directions = named_directions
+    end
 
     def build(type:, arguments: [])
       command_type_symbol = type.downcase.to_sym
-      command_class = COMMAND_MAPPING[command_type_symbol] ||
-                      ::RobotApplication::RobotCommand::Null.new(type: type, arguments: arguments)
-      command_class.new(type: command_type_symbol, arguments: arguments)
+      command_class = COMMAND_MAPPING[command_type_symbol] || RobotCommand::Null
+      command_class.new(
+        type: command_type_symbol,
+        arguments: arguments,
+        named_directions: named_directions,
+        turning_strategy: turning_strategy,
+      )
     end
   end
 end

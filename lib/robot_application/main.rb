@@ -4,6 +4,8 @@ require "robot_application/robot"
 require "robot_application/table"
 require "robot_application/input_reader/stdin"
 require "robot_application/input_parser/text_command"
+require "robot_application/turning_strategy/right_angle"
+require "robot_application/named_direction/container/default"
 
 module RobotApplication
   class Main

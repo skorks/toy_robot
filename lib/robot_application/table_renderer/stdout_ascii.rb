@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RobotApplication
-  class TableRenderer
+  module TableRenderer
     class StdoutAscii
       def render(table:, robot:)
         draw_table(

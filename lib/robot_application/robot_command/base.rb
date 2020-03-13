@@ -5,7 +5,7 @@ require "robot_application/error"
 module RobotApplication
   module RobotCommand
     class Base
-      attr_reader :type, :arguments, :turning_strategy
+      attr_reader :type, :arguments, :named_directions, :turning_strategy
 
       def initialize(type:, arguments: [], named_directions:, turning_strategy:)
         @named_directions = named_directions
