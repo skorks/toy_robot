@@ -10,14 +10,14 @@ module RobotApplication
     attr_reader :input_reader, :input_parser, :table_renderer, :robot, :table
 
     def initialize(
-      table_width:, 
+      table_width:,
       table_height:,
       input_reader: InputReader::Stdin.new,
       input_parser: InputParser::TextCommand.new(
         command_factory: CommandFactory.new(
           turning_strategy: TurningStrategy::RightAngle,
-          named_directions: NamedDirection::Container::Default
-        )
+          named_directions: NamedDirection::Container::Default,
+        ),
       ),
       table_renderer: TableRenderer::Factory.new.build(type: :null)
     )

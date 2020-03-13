@@ -5,10 +5,10 @@ module RobotApplication
     class StdoutAscii
       def render(table:, robot:)
         draw_table(
-          width: table.width, 
-          height: table.height, 
-          x: robot.x, 
-          y: robot.y, 
+          width: table.width,
+          height: table.height,
+          x: robot.x,
+          y: robot.y,
           direction: robot.direction,
         )
         draw_idling_robot if robot.idle?

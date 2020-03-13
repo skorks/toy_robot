@@ -1,0 +1,196 @@
+require:
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.7
+
+  Exclude:
+    - "suboptimal/robot_challenge"
+    - "simple/robot_challenge"
+    - "spec/**/*"
+
+Layout/LineLength:
+  Severity: warning
+  Max: 150
+  IgnoredPatterns: ['^\s*#']
+
+Metrics/MethodLength:
+  Max: 15
+  CountComments: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 100
+
+Metrics/ModuleLength:
+  CountComments: false
+  Max: 100
+
+Lint/UnusedMethodArgument:
+  AutoCorrect: false
+  AllowUnusedKeywordArguments: true
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+  AutoCorrect: false
+
+Layout/DefEndAlignment:
+  Enabled: true
+  AutoCorrect: true
+
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Naming/MethodParameterName:
+  AllowedNames: ["x", "y"]
+# Style/StringLiterals:
+#   Enabled: false
+
+# Style/StringLiteralsInInterpolation:
+#   Enabled: false
+
+# Style/WordArray:
+#   Enabled: false
+
+# Style/GuardClause:
+#   Enabled: false
+
+# Style/EachWithObject:
+#   Enabled: false
+
+# Style/Lambda:
+#   Enabled: false
+
+# Style/DoubleNegation:
+#   Enabled: false
+
+# Style/SingleLineMethods:
+#   Enabled: false
+
+# Style/NumericLiterals:
+#   Enabled: false
+
+###########################3
+
+# Style/ConditionalAssignment:
+#   Enabled: false
+
+# Rails/HttpPositionalArguments:
+#   Enabled: false
+
+# Style/NumericPredicate:
+#   Enabled: false
+
+# Style/ParenthesesAroundCondition:
+#   Enabled: false
+
+# Style/SymbolArray:
+#   Enabled: false
+
+# Style/RescueStandardError:
+#   Enabled: false
+
+# Style/IfUnlessModifier:
+#   Enabled: false
+
+# Metrics/BlockLength:
+#   Enabled: false
+
+# RSpec/VerifiedDoubles:
+#   Enabled: false
+
+# RSpec/Focus:
+#   Enabled: true
+#   AutoCorrect: true
+
+# RSpec/NestedGroups:
+#   Max: 7
+
+# RSpec/ContextWording:
+#   Enabled: false
+
+# RSpec/ExampleLength:
+#   Enabled: false
+
+# RSpec/BeEql:
+#   Enabled: true
+
+# RSpec/MultipleExpectations:
+#   Max: 100
+
+# RSpec/NotToNot:
+#   Enabled: false
+
+# RSpec/MessageSpies:
+#   Enabled: false
+
+# RSpec/AnyInstance:
+#   Enabled: false
+
+# RSpec/ScatteredLet:
+#   Enabled: false
+
+# RSpec/FilePath:
+#   Enabled: false
+
+# RSpec/LetSetup:
+#   Enabled: false
+
+# RSpec/ExpectInHook:
+#   Enabled: false
+
+# RSpec/IteratedExpectation:
+#   Enabled: false
+
+# RSpec/LeakyConstantDeclaration:
+#   Enabled: false
+
+# # FIXME: Brakeman failing after following fixes
+# Style/RedundantBegin:
+#   Exclude:
+#     - "app/domain/models/australian_police_check_credential/address_history_step.rb"
+#     - "app/domain/models/australian_police_check_credential/data_replicator.rb"
+#     - "app/domain/models/personal_document/resolver_utils.rb"
+#     - "app/domain/models/writers_helpers.rb"

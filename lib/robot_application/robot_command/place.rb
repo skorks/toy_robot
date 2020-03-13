@@ -11,7 +11,7 @@ module RobotApplication
         if table.contains_position?(position: position) && direction
           robot.update!(position: position, direction: direction)
         else
-          $stderr.puts "Invalid coordinates or facing direction given for #{type} command"
+          warn "Invalid coordinates or facing direction given for #{type} command"
         end
       end
 
@@ -19,7 +19,7 @@ module RobotApplication
 
       def position
         @position = Table::Position.new(
-          x: Utils::Integer.parse(value: arguments[0], default: -1), 
+          x: Utils::Integer.parse(value: arguments[0], default: -1),
           y: Utils::Integer.parse(value: arguments[1], default: -1),
         )
       end

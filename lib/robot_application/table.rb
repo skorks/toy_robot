@@ -15,7 +15,7 @@ module RobotApplication
       (0...width).cover?(position.x) && (0...height).cover?(position.y)
     end
 
-    class Position 
+    class Position
       attr_reader :x, :y
 
       def initialize(x:, y:)

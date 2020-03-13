@@ -5,7 +5,7 @@ module RobotApplication
     class RightAngle
       FULL_CIRCLE_DEGREES = 360
       SHIFT_DEGREES = 90
-      
+
       attr_reader :starting_direction
 
       def initialize(starting_direction:)
@@ -13,12 +13,14 @@ module RobotApplication
       end
 
       def clockwise(times: 1)
-        return unless (starting_direction % SHIFT_DEGREES) == 0
+        return unless (starting_direction % SHIFT_DEGREES).zero?
+
         (starting_direction + times * SHIFT_DEGREES) % FULL_CIRCLE_DEGREES
       end
 
       def anticlockwise(times: 1)
-        return unless (starting_direction % SHIFT_DEGREES) == 0
+        return unless (starting_direction % SHIFT_DEGREES).zero?
+
         (starting_direction - times * SHIFT_DEGREES) % FULL_CIRCLE_DEGREES
       end
     end

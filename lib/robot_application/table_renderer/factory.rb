@@ -2,13 +2,13 @@
 
 module RobotApplication
   module TableRenderer
-    class Factory 
+    class Factory
       MAPPING = {
         ascii: TableRenderer::StdoutAscii,
         null: TableRenderer::Null,
-      }
+      }.freeze
 
-      class << self 
+      class << self
         def types
           MAPPING.keys
         end

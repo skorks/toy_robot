@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RobotApplication
   module InputReader
     class Stdin
@@ -9,8 +11,8 @@ module RobotApplication
         @input_io = input_io
       end
 
-      def each(&block)
-        while(line = input_io.gets) do
+      def each(&_block)
+        while (line = input_io.gets)
           yield(line.chomp)
         end
       end

@@ -2,11 +2,11 @@
 
 module RobotApplication
   module Utils
-    class Integer 
+    class Integer
       class << self
         def parse(value:, default: 0)
           Integer(value)
-        rescue ArgumentError 
+        rescue ArgumentError
           default
         end
       end

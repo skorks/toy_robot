@@ -15,12 +15,12 @@ module RobotApplication
       left: ::RobotApplication::RobotCommand::Left,
       right: ::RobotApplication::RobotCommand::Right,
       report: ::RobotApplication::RobotCommand::Report,
-    }
+    }.freeze
 
     def build(type:, arguments: [])
       command_type_symbol = type.downcase.to_sym
-      command_class = COMMAND_MAPPING[command_type_symbol] || 
-        ::RobotApplication::RobotCommand::Null.new(type: type, arguments: arguments)
+      command_class = COMMAND_MAPPING[command_type_symbol] ||
+                      ::RobotApplication::RobotCommand::Null.new(type: type, arguments: arguments)
       command_class.new(type: command_type_symbol, arguments: arguments)
     end
   end

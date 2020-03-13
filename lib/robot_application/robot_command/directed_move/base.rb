@@ -13,6 +13,7 @@ module RobotApplication
 
         def execute
           return unless table.contains_cell?(cell: new_position.cell)
+
           robot.update_position(position: new_position)
         end
 

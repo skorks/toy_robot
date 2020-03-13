@@ -12,8 +12,8 @@ module RobotApplication
 
       Interface::Cli.parse do |params|
         Main.new(
-          table_width: Utils::Integer.parse(value: params.width), 
-          table_height: Utils::Integer.parse(value: params.height), 
+          table_width: Utils::Integer.parse(value: params.width),
+          table_height: Utils::Integer.parse(value: params.height),
           table_renderer: TableRenderer::Factory.new.build(type: params.renderer),
         ).execute
       end

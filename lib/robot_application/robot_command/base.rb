@@ -15,12 +15,12 @@ module RobotApplication
       end
 
       def execute(robot:, table:)
-        raise Error.new("Base class #{self.class.name} should not be used directly")
+        raise Error, "Base class #{self.class.name} should not be used directly"
       end
 
       private
 
-      def compass 
+      def compass
         @compass ||= ::RobotApplication::Compass.new(named_directions: named_directions)
       end
     end

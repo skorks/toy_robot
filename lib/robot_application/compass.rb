@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RobotApplication
-  class Compass 
+  class Compass
     attr_reader :named_directions
 
     def initialize(named_directions: NamedDirection::Container::Default)
