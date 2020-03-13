@@ -6,19 +6,19 @@ The description of the problem can be found in [PROBLEM.md](PROBLEM.md).
 
 To avoid dependency issues the application is dockerised, build the docker image first:
 
-```
+```bash
 docker build -t robot_challenge .
 ```
 
 We can now run it:
 
-```
+```bash
 docker run -it robot_challenge
 ```
 
 For a more interactive experience, first run we can run back inside the docker container:
 
-```
+```bash
 docker run -it --entrypoint /bin/bash robot_challenge
 ```
 
@@ -41,7 +41,7 @@ Commands (and arguments for PLACE) can be lower or upper case.
 For more fun, I suggest running it like this `bin/robot_challenge -r ascii`, this is similar to above, but after every command it
 will print out an ascii representation of the table e.g.:
 
-```
+```plain
 > bin/robot_challenge -r ascii
 place 3,3,south
 ---------------------
@@ -59,13 +59,13 @@ place 3,3,south
 
 There is a file with some test data `test_data.txt`, you can pipe it to executable:
 
-```
+```bash
 bin/robot_challenge < test_data.txt
 ```
 
 It has some commands before a place, an invalid command and a bunch of other stuff, it should produce the following output:
 
-```
+```plain
 Invalid command given FOOBAR
 1,1,NORTH
 1,3,NORTH
@@ -89,7 +89,7 @@ I made the assumption that it's all of the above (to some extent). So approachin
 a larger one which needs to account for some level of extensibility, changing requirements etc. Having said that, since I've
 done this coding test before, I also decided to implement a smallest working solution, code-golf style. You can find it at:
 
-```
+```bash
 simple/robot_challenge
 ```
 
