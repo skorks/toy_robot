@@ -7,8 +7,8 @@ module RobotApplication
         draw_table(
           width: table.width,
           height: table.height,
-          x: robot.x,
-          y: robot.y,
+          x: robot.position.x,
+          y: robot.position.y,
           direction: robot.direction,
         )
         draw_idling_robot if robot.idle?
@@ -16,7 +16,7 @@ module RobotApplication
 
       private
 
-      def draw_table(width:, height:, x: -1, y: -1, direction: FacingDirection[:north])
+      def draw_table(width:, height:, x: -1, y: -1, direction: NamedDirection::Container::Default::ALL[:north])
         (height - 1).downto(0) do |row|
           draw_row_separator(width)
           0.upto(width - 1) do |column|
@@ -47,10 +47,10 @@ module RobotApplication
 
       def draw_robot_cell(direction: 0)
         robot_char_mapping = {
-          FacingDirection[:north] => "^",
-          FacingDirection[:east] => ">",
-          FacingDirection[:south] => "v",
-          FacingDirection[:west] => "<",
+          NamedDirection::Container::Default::ALL[:north] => "^",
+          NamedDirection::Container::Default::ALL[:east] => ">",
+          NamedDirection::Container::Default::ALL[:south] => "v",
+          NamedDirection::Container::Default::ALL[:west] => "<",
         }
         print " #{robot_char_mapping[direction]} "
       end

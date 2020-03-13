@@ -36,7 +36,6 @@ module RobotApplication
       (commands[type] || ->(_) { warn "Invalid command #{type.to_s.upcase}" }).call(arguments)
     end
   end
-
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 end
 
