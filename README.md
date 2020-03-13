@@ -3,17 +3,37 @@
 The description of the problem can be found in [PROBLEM.md](PROBLEM.md).
 
 ## Usage
+
+To avoid dependency issues the application is dockerised, build the docker image first:
+
+```
+docker build -t robot_challenge .
+```
+
+We can now run it:
+
+```
+docker run -it robot_challenge
+```
+
+For a more interactive experience, first run we can run back inside the docker container:
+
+```
+docker run -it --entrypoint /bin/bash robot_challenge
+```
+
+We can now run the application or test etc.
+
 The executable script is `bin/robot_challenge`.
 
-If you want to run tests you can `bundle exec rspec spec` or `bundle exec rake spec`.
+If you want to run tests you can `rspec spec` or `rake spec`.
 
-This repo is built like a gem, so `bundle install` will bring in dependencies, the only dependencies are `rake` and `rspec`
-(and `bundler`), there are no runtime dependencies (this is by design).
+This repo is built like a gem, so `bundle install` will bring in dependencies. The only dependencies are `rake`, `rspec` and a few `robocop` gems (and `bundler`). There are no runtime dependencies (this is by design).
 
 You can do `bin/robot_challenge -h` and it should print out some info for you.
 
 To summarise, the simplest way to run it is just `bin/robot_challenge`, it will sit there waiting for input. You can start entering
-commands, errors will be printed for invalid commands or invalid arguments (for place command). Nothing will be printed for valid
+commands, errors will be printed for invalid commands or invalid arguments (for PLACE command). Nothing will be printed for valid
 commands that were successfully executed, you'll have to use the report command to see if it's doing the right thing.
 
 Commands (and arguments for PLACE) can be lower or upper case.
@@ -58,7 +78,6 @@ Invalid command given FOOBAR
 0,1,NORTH
 ```
 
-
 ## Thoughts and assumptions
 
 The original problem definition doesn't state what the goal of this coding test exercise is.
@@ -76,24 +95,28 @@ simple/robot_challenge
 
 It's 30 lines of non-boilerplate code. It's not quite as robust as it could be, but it fulfils the problem requirements. Execute it in the same way as above if it's of interest. In my case it was just for the purposes of bonus fun :).
 
-
 There are many questions that can be asked to clarify the requirements of this problem. These include:
 
 Is the table size static, might we want to change it at some point?
-* I made the table size configurable
+
+- I made the table size configurable
 
 If we tell robot to move off the edge of the table, how do we handle this? Do nothing? Output an error? If we want to output an error,
 where do we want to output it STDERR, file etc.?
-* I chose to do nothing
+
+- I chose to do nothing
 
 Can the origin change e.g. 0,0 in the North-West corner instead of South-West?
-* I chose to assume that, it can't change, to make my life easier.
+
+- I chose to assume that, it can't change, to make my life easier.
 
 Report command outputs to STDOUT, is this likely to change?
-* I chose to assume that always to STDOUT is fine.
+
+- I chose to assume that always to STDOUT is fine.
 
 Can new commands be introduced?
-* I chose to assume that as a likely change vector, so the design facilitates that relatively easily.
+
+- I chose to assume that as a likely change vector, so the design facilitates that relatively easily.
 
 ### More thoughts
 

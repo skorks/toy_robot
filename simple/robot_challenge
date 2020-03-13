@@ -1,38 +1,43 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 module RobotApplication
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
   def self.execute
     directions = { north: 0, east: 1, south: 2, west: 3 }
-    robot = {x: -1, y: -1, direction: -1}
-    table = {width: 5, height: 5}
+    robot = { x: -1, y: -1, direction: -1 }
+    table = { width: 5, height: 5 }
     commands = {
-      place: ->(arguments) do
-        robot = {x: arguments[0].to_i, y: arguments[1].to_i, direction: directions[arguments[2].downcase.to_sym]}
+      place: lambda do |arguments|
+        robot = { x: arguments[0].to_i, y: arguments[1].to_i, direction: directions[arguments[2].downcase.to_sym] }
       end,
-      move: ->(arguments) do
+      move: lambda do |arguments|
         robot[:y] += 1 if robot[:direction] == directions[:north] && robot[:y] < table[:height] - 1
-        robot[:y] -= 1 if robot[:direction] == directions[:south] && robot[:y] > 0
+        robot[:y] -= 1 if robot[:direction] == directions[:south] && robot[:y].positive?
         robot[:x] += 1 if robot[:direction] == directions[:east] && robot[:x] < table[:width] - 1
-        robot[:x] -= 1 if robot[:direction] == directions[:west] && robot[:x] > 0
+        robot[:x] -= 1 if robot[:direction] == directions[:west] && robot[:x].positive?
       end,
-      left: ->(arguments) do
+      left: lambda do |arguments|
         robot[:direction] = (robot[:direction] - 1) % 4
       end,
-      right: ->(arguments) do
+      right: lambda do |arguments|
         robot[:direction] = (robot[:direction] + 1) % 4
       end,
-      report: ->(arguments) do
+      report: lambda do |arguments|
         $stdout.puts "#{robot[:x]},#{robot[:y]},#{directions.invert[robot[:direction]].to_s.upcase}"
       end,
     }
-    while(line = $stdin.gets) do
+    while (line = $stdin.gets)
       input_tokens = line.chomp.split(/\s+/, 2).map(&:downcase)
       type = (input_tokens[0] || "").to_sym
       arguments = (input_tokens[1] || "").split(/,\s*/)
       next if robot[:x] == -1 && type != :place
-      (commands[type] || ->(_) { $stderr.puts "Invalid command #{type.to_s.upcase}" }).call(arguments)
+
+      (commands[type] || ->(_) { warn "Invalid command #{type.to_s.upcase}" }).call(arguments)
     end
   end
+
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 end
 
 RobotApplication.execute

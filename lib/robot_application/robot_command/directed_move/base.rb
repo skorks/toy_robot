@@ -12,13 +12,13 @@ module RobotApplication
         end
 
         def execute
-          return unless table.contains_cell?(cell: new_position.cell)
+          return unless table.contains_position?(position: new_position)
 
-          robot.update_position(position: new_position)
+          robot.update!(position: new_position)
         end
 
         def new_position
-          @new_position = robot.position
+          @new_position = robot.position.clone
         end
       end
     end

@@ -3,6 +3,7 @@
 require "robot_application/robot"
 require "robot_application/table"
 require "robot_application/input_reader/stdin"
+require "robot_application/input_reader/readline"
 require "robot_application/input_parser/text_command"
 require "robot_application/turning_strategy/right_angle"
 require "robot_application/named_direction/container/default"
@@ -14,7 +15,7 @@ module RobotApplication
     def initialize(
       table_width:,
       table_height:,
-      input_reader: InputReader::Stdin.new,
+      input_reader: InputReader::Readline.new,
       input_parser: InputParser::TextCommand.new(
         command_factory: CommandFactory.new(
           turning_strategy: TurningStrategy::RightAngle,

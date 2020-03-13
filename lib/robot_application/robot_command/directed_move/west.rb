@@ -7,7 +7,7 @@ module RobotApplication
     module DirectedMove
       class West < Base
         def new_position
-          @new_position = robot.position.clone.increment_cell(x: -1)
+          @new_position = robot.position.increment(x: -1)
         end
       end
     end

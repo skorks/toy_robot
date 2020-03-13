@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "robot_application/error"
+require "robot_application/compass"
 
 module RobotApplication
   module RobotCommand
@@ -21,7 +22,7 @@ module RobotApplication
       private
 
       def compass
-        @compass ||= ::RobotApplication::Compass.new(named_directions: named_directions)
+        @compass ||= Compass.new(named_directions: named_directions)
       end
     end
   end

@@ -27,7 +27,7 @@ module RobotApplication
       end
 
       def increment(x: 0, y: 0)
-        self.class.new(x: cell.x + x, y: cell.y + y)
+        self.class.new(x: self.x + x, y: self.y + y)
       end
 
       def clone

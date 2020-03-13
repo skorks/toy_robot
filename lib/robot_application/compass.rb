@@ -13,7 +13,7 @@ module RobotApplication
     end
 
     def angle_for(name:)
-      named_directions::ALL[direction.downcase.to_sym]
+      named_directions::ALL[name.downcase.to_sym]
     end
   end
 end

@@ -8,7 +8,7 @@ module RobotApplication
       def execute(robot:, table:)
         return if robot.idle?
 
-        robot.update!(direction: turning_strategy.new(starting_direction: 90).anticlockwise)
+        robot.update!(direction: turning_strategy.new(starting_direction: robot.direction).anticlockwise)
       end
     end
   end
