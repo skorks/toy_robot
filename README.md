@@ -16,7 +16,7 @@ We can now run it:
 docker run -it robot_challenge
 ```
 
-For a more interactive experience, first run we can run back inside the docker container:
+For a more interactive experience, we can run bash inside the docker container:
 
 ```bash
 docker run -it --entrypoint /bin/bash robot_challenge

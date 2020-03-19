@@ -11,3 +11,8 @@
 - get rubocop working for alternative solutions
 - update the readme so it's according to the latest
 - fix the tests
+- create an output writer
+- merge the branch to master
+- implement obstacles well
+- implement pathfinding commands (find_path, goto)
+- refactor the stdout renderer so it's better designed
