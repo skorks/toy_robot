@@ -72,7 +72,7 @@ bin/robot_challenge < test_data.txt
 
 It has some commands before a place, an invalid command and a bunch of other stuff, it should produce the following output:
 
-```bash
+```plain
 Invalid command given FOOBAR
 1,1,NORTH
 1,3,NORTH
