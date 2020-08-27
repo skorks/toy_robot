@@ -10,7 +10,7 @@
 
 Create an application that can read in commands of the following form:
 
-```
+```plain
 PLACE X,Y,F
 MOVE
 LEFT
@@ -36,7 +36,7 @@ Example Input and Output:
 
 a)
 
-```
+```plain
 PLACE 0,0,NORTH
 MOVE
 REPORT
@@ -45,7 +45,7 @@ Output: 0,1,NORTH
 
 b)
 
-```
+```plain
 PLACE 0,0,NORTH
 LEFT
 REPORT
@@ -54,7 +54,7 @@ Output: 0,0,WEST
 
 c)
 
-```
+```plain
 PLACE 1,2,EAST
 MOVE
 MOVE

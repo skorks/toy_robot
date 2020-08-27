@@ -3,6 +3,33 @@
 The description of the problem can be found in [PROBLEM.md](PROBLEM.md).
 
 ## Usage
+
+### Docker
+
+To avoid dependency issues the application is dockerised, build the docker image first:
+
+```bash
+docker build -t robot_challenge .
+```
+
+We can now run it:
+
+```bash
+docker run -it robot_challenge
+```
+
+For a more interactive experience, we can run bash inside the docker container:
+
+```bash
+docker run -it --entrypoint /bin/bash robot_challenge
+```
+
+We can now run the application or test etc. (see next section for commands)
+
+### Without docker
+
+You need ruby, version is specified in `.ruby-version`
+
 The executable script is `bin/robot_challenge`.
 
 If you want to run tests you can `bundle exec rspec spec` or `bundle exec rake spec`.
@@ -21,7 +48,7 @@ Commands (and arguments for PLACE) can be lower or upper case.
 For more fun, I suggest running it like this `bin/robot_challenge -r ascii`, this is similar to above, but after every command it
 will print out an ascii representation of the table e.g.:
 
-```
+```bash
 > bin/robot_challenge -r ascii
 place 3,3,south
 ---------------------
@@ -39,13 +66,13 @@ place 3,3,south
 
 There is a file with some test data `test_data.txt`, you can pipe it to executable:
 
-```
+```bash
 bin/robot_challenge < test_data.txt
 ```
 
 It has some commands before a place, an invalid command and a bunch of other stuff, it should produce the following output:
 
-```
+```plain
 Invalid command given FOOBAR
 1,1,NORTH
 1,3,NORTH
@@ -58,7 +85,6 @@ Invalid command given FOOBAR
 0,1,NORTH
 ```
 
-
 ## Thoughts and assumptions
 
 The original problem definition doesn't state what the goal of this coding test exercise is.
@@ -70,30 +96,34 @@ I made the assumption that it's all of the above (to some extent). So approachin
 a larger one which needs to account for some level of extensibility, changing requirements etc. Having said that, since I've
 done this coding test before, I also decided to implement a smallest working solution, code-golf style. You can find it at:
 
-```
+```bash
 simple/robot_challenge
 ```
 
 It's 30 lines of non-boilerplate code. It's not quite as robust as it could be, but it fulfils the problem requirements. Execute it in the same way as above if it's of interest. In my case it was just for the purposes of bonus fun :).
 
-
 There are many questions that can be asked to clarify the requirements of this problem. These include:
 
-Is the table size static, might we want to change it at some point?
-* I made the table size configurable
+- Is the table size static, might we want to change it at some point?
 
-If we tell robot to move off the edge of the table, how do we handle this? Do nothing? Output an error? If we want to output an error,
-where do we want to output it STDERR, file etc.?
-* I chose to do nothing
+I made the table size configurable
 
-Can the origin change e.g. 0,0 in the North-West corner instead of South-West?
-* I chose to assume that, it can't change, to make my life easier.
+- If we tell robot to move off the edge of the table, how do we handle this? Do nothing? Output an error? If we want to output an error,
+  where do we want to output it STDERR, file etc.?
 
-Report command outputs to STDOUT, is this likely to change?
-* I chose to assume that always to STDOUT is fine.
+I chose to do nothing
 
-Can new commands be introduced?
-* I chose to assume that as a likely change vector, so the design facilitates that relatively easily.
+- Can the origin change e.g. 0,0 in the North-West corner instead of South-West?
+
+I chose to assume that, it can't change, to make my life easier.
+
+- Report command outputs to STDOUT, is this likely to change?
+
+I chose to assume that always to STDOUT is fine.
+
+- Can new commands be introduced?
+
+I chose to assume that as a likely change vector, so the design facilitates that relatively easily.
 
 ### More thoughts
 
