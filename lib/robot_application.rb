@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/command_line_interface"
 require "robot_application/main"
 

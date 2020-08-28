@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/command_factory"
 
 module RobotApplication

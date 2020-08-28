@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/command_factory/place_robot_command"
 require "robot_application/command_factory/move_robot_command"
 require "robot_application/command_factory/turn_left_robot_command"
@@ -13,7 +15,7 @@ module RobotApplication
       left: TurnLeftRobotCommand,
       right: TurnRightRobotCommand,
       report: ReportRobotCommand,
-    }
+    }.freeze
 
     def build(type:, arguments: [])
       command_type_symbol = type.downcase.to_sym

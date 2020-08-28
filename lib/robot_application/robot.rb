@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RobotApplication
   class Robot
     attr_reader :x, :y, :direction

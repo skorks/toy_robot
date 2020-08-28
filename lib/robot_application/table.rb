@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RobotApplication
   class Table
     attr_reader :width, :height
@@ -9,9 +11,9 @@ module RobotApplication
 
     def contains_coordinates?(x:, y:)
       x >= 0 &&
-      x < width &&
-      y >= 0 &&
-      y < height
+        x < width &&
+        y >= 0 &&
+        y < height
     end
   end
 end
