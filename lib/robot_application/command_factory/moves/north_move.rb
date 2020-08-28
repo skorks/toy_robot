@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/command_factory/moves/directed_move"
 
 module RobotApplication
@@ -6,9 +8,7 @@ module RobotApplication
       class NorthMove < DirectedMove
         def execute
           new_y = robot.y + 1
-          if table.contains_coordinates?(x: robot.x, y: new_y)
-            robot.update_position(y: new_y)
-          end
+          robot.update_position(y: new_y) if table.contains_coordinates?(x: robot.x, y: new_y)
         end
       end
     end

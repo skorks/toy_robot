@@ -1,0 +1,94 @@
+require:
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.7
+
+  Exclude:
+    - "suboptimal/robot_challenge"
+    - "simple/robot_challenge"
+    - "spec/**/*"
+
+Layout/LineLength:
+  Severity: warning
+  Max: 150
+  IgnoredPatterns: ['^\s*#']
+
+Metrics/MethodLength:
+  Max: 15
+  CountComments: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 100
+
+Metrics/ModuleLength:
+  CountComments: false
+  Max: 100
+
+Lint/UnusedMethodArgument:
+  AutoCorrect: false
+  AllowUnusedKeywordArguments: true
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+  AutoCorrect: false
+
+Layout/DefEndAlignment:
+  Enabled: true
+  AutoCorrect: true
+
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always_true
+  Enabled: true
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+
+Style/StderrPuts:
+  Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames: ["x", "y"]

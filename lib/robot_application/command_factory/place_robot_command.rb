@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/command_factory/robot_command"
 require "robot_application/facing_direction"
 
@@ -21,13 +23,13 @@ module RobotApplication
 
       def x
         Integer(arguments[0])
-      rescue
+      rescue StandardError
         -1
       end
 
       def y
         Integer(arguments[1])
-      rescue
+      rescue StandardError
         -1
       end
 

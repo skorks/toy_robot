@@ -1,4 +1,6 @@
-require 'optparse'
+# frozen_string_literal: true
+
+require "optparse"
 require "robot_application/table_renderers/null_table_renderer"
 require "robot_application/table_renderers/stdout_ascii_table_renderer"
 
@@ -34,21 +36,22 @@ module RobotApplication
       @arguments = arguments || ARGV
     end
 
-    def parse_options(&block)
+    # rubocop:disable Metrics/MethodLength
+    def parse_options(&_block)
       options = {}
       parser = OptionParser.new do |opts|
         opts.banner = "Usage: bin/robot_challenge [options]"
 
         opts.on("-w", "--width WIDTH", "Table width") do |width|
-          options[:width] = width;
+          options[:width] = width
         end
 
         opts.on("-i", "--height HEIGHT", "Table height") do |height|
-          options[:height] = height;
+          options[:height] = height
         end
 
-        opts.on("-r", "--renderer RENDERER", [:null, :ascii], "Table renderer to use (null, ascii)") do |renderer|
-          options[:renderer] = renderer;
+        opts.on("-r", "--renderer RENDERER", %i[null ascii], "Table renderer to use (null, ascii)") do |renderer|
+          options[:renderer] = renderer
         end
 
         opts.on("-h", "--help", "Show this message") do
@@ -64,5 +67,6 @@ module RobotApplication
         Options.new(options)
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

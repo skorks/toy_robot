@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "robot_application/robot"
 require "robot_application/table"
 require "robot_application/stdin_input_reader"
@@ -9,9 +11,9 @@ module RobotApplication
     attr_reader :input_reader, :input_parser, :table_renderer, :robot, :table
 
     def initialize(table_width: 5, table_height: 5,
-      input_reader: StdinInputReader.new,
-      input_parser: InputParser.new,
-      table_renderer: TableRenderers::NullTableRenderer.new)
+                   input_reader: StdinInputReader.new,
+                   input_parser: InputParser.new,
+                   table_renderer: TableRenderers::NullTableRenderer.new)
       @robot = Robot.new
       @table = Table.new(width: table_width, height: table_height)
       @input_reader = input_reader

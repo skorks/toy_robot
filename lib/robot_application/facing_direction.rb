@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 module RobotApplication
   module FacingDirection
     DIRECTIONS = {
       north: 0,
       east: 1,
       south: 2,
-      west: 3
+      west: 3,
     }.freeze
 
     class << self
       def value_for(direction)
         DIRECTIONS[direction.downcase.to_sym]
       end
-      alias_method :[], :value_for
+      alias [] value_for
 
       def valid?(direction)
         !!value_for(direction)

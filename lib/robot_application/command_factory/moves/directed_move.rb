@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RobotApplication
   class CommandFactory
     class Moves
@@ -10,7 +12,7 @@ module RobotApplication
         end
 
         def execute
-          raise Error.new("Base class #{self.class.name} should not be used directly")
+          raise Error, "Base class #{self.class.name} should not be used directly"
         end
       end
     end
