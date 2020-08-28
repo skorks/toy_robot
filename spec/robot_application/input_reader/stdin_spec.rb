@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::StdinInputReader do
+RSpec.describe RobotApplication::InputReader::Stdin do
   let(:input_reader) { described_class.new(input_io: input_io) }
   let(:input_io) { StringIO.new("#{line1}\n#{line2}") }
   let(:line1) { "hello" }
@@ -15,7 +15,7 @@ RSpec.describe RobotApplication::StdinInputReader do
 
     it "yielded lines don't contain newlines" do
       input_reader.each do |line|
-        expect(line).to_not match(/\\n/)
+        expect(line).not_to match(/\\n/)
       end
     end
   end
