@@ -1,21 +1,25 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe RobotApplication::Main do
-  let(:main) { described_class.new(table_width: width, table_height: height,
+  let(:main) do
+    described_class.new(table_width: width, table_height: height,
     input_reader: input_reader,
     input_parser: input_parser,
-    table_renderer: table_renderer) }
+    table_renderer: table_renderer)
+  end
   let(:width) { 7 }
   let(:height) { 8 }
   let(:input_reader) { [input_string1, input_string2] }
   let(:input_string1) { "input_string1" }
   let(:input_string2) { "input_string2" }
   let(:input_parser) { double "input_parser", parse: [command] }
-  let(:table_renderer) { RobotApplication::TableRenderers::NullTableRenderer.new }
-  let(:command) {double "command", execute: nil}
+  let(:table_renderer) { RobotApplication::TableRenderer::Null.new }
+  let(:command) { double "command", execute: nil }
 
-  let(:robot) {double "robot"}
-  let(:table) {double "table"}
+  let(:robot) { double "robot" }
+  let(:table) { double "table" }
 
   before do
     allow(RobotApplication::Robot).to receive(:new).and_return(robot)

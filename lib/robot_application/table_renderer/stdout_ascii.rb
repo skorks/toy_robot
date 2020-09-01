@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
+require "robot_application/facing_direction"
+
 module RobotApplication
-  class TableRenderers
-    class StdoutAsciiTableRenderer
+  module TableRenderer
+    class StdoutAscii
       def render(table:, robot:)
-        draw_table(width: table.width, height: table.height, x: robot.x, y: robot.y, direction: robot.direction)
+        draw_table(
+          width: table.width,
+          height: table.height,
+          x: robot.x,
+          y: robot.y,
+          direction: robot.direction,
+        )
         draw_idling_robot if robot.idle?
       end
 
