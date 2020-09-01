@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe RobotApplication::Main do
@@ -32,7 +34,7 @@ RSpec.describe RobotApplication::Main do
     ]
   end
   let(:input_parser) { RobotApplication::InputParser.new }
-  let(:table_renderer) { RobotApplication::TableRenderers::NullTableRenderer.new }
+  let(:table_renderer) { RobotApplication::TableRenderer::Null.new }
   let(:output_io) { StringIO.new }
   let(:expected_output) do
     [

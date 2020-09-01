@@ -5,7 +5,7 @@ require "robot_application/table"
 require "robot_application/input_reader/stdin"
 require "robot_application/input_reader/readline"
 require "robot_application/input_parser"
-require "robot_application/table_renderers/null_table_renderer"
+require "robot_application/table_renderer/null"
 
 module RobotApplication
   class Main
@@ -14,7 +14,7 @@ module RobotApplication
     def initialize(table_width: 5, table_height: 5,
                    input_reader: RobotApplication::InputReader::Readline.new,
                    input_parser: InputParser.new,
-                   table_renderer: TableRenderers::NullTableRenderer.new)
+                   table_renderer: TableRenderer::Null.new)
       @robot = Robot.new
       @table = Table.new(width: table_width, height: table_height)
       @input_reader = input_reader
