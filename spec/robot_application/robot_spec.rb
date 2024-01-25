@@ -5,7 +5,6 @@ RSpec.describe RobotApplication::Robot do
   let(:x) { 1 }
   let(:y) { 2 }
   let(:direction) { RobotApplication::FacingDirection[:north] }
-  let(:table) { double "table" }
 
   describe "#update_position" do
     before do
@@ -13,7 +12,6 @@ RSpec.describe RobotApplication::Robot do
         x: x,
         y: y,
         direction: direction,
-        table: table,
       )
     end
 
@@ -27,10 +25,6 @@ RSpec.describe RobotApplication::Robot do
 
     it "can update the direction" do
       expect(robot.direction).to eq direction
-    end
-
-    it "can update the table" do
-      expect(robot.instance_variable_get(:@table)).to eq table
     end
 
     context "when only some of the parameters are supplied" do
@@ -51,7 +45,7 @@ RSpec.describe RobotApplication::Robot do
   end
 
   describe "#idle?" do
-    context "when robot is not aware of a table" do
+    context "when robot doesn't have any attributes set" do
       it "is considered to be idle" do
         expect(robot.idle?).to be_truthy
       end
@@ -59,7 +53,7 @@ RSpec.describe RobotApplication::Robot do
 
     context "when robot is aware of a table" do
       before do
-        robot.update_position(table: table)
+        robot.update_position(x: x, y: y, direction: direction)
       end
 
       it "is NOT considered to be idle" do

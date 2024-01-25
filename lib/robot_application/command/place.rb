@@ -12,7 +12,6 @@ module RobotApplication
             x: x,
             y: y,
             direction: FacingDirection[direction],
-            table: table,
           )
         else
           $stderr.puts "Invalid coordinates or facing direction given for #{type} command"

@@ -23,7 +23,6 @@ RSpec.describe RobotApplication::Command::Place do
         x: x.to_i,
         y: y.to_i,
         direction: RobotApplication::FacingDirection[:south],
-        table: table,
       )
       execute
     end
@@ -63,7 +62,6 @@ RSpec.describe RobotApplication::Command::Place do
           x: x.to_i,
           y: y.to_i,
           direction: RobotApplication::FacingDirection[:south],
-          table: table,
         )
         execute
       end

@@ -17,7 +17,7 @@ module RobotApplication
     end
 
     def idle?
-      @table.nil?
+      @x.nil? || @y.nil? || @direction.nil?
     end
   end
 end

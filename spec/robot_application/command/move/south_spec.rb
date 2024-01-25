@@ -8,7 +8,6 @@ RSpec.describe RobotApplication::Command::Move::South do
         x: x,
         y: y,
         direction: direction,
-        table: table,
       )
     end
   end

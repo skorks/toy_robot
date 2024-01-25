@@ -7,8 +7,7 @@ RSpec.describe RobotApplication::Command::Move::East do
       robot.update_position(
         x: x,
         y: y,
-        direction: direction,
-        table: table,
+        direction: direction
       )
     end
   end
