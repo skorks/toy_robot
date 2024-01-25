@@ -8,14 +8,12 @@ module RobotApplication
       @x = nil
       @y = nil
       @direction = nil
-      @table = nil
     end
 
-    def update_position(x: nil, y: nil, direction: nil, table: nil)
+    def update_position(x: nil, y: nil, direction: nil)
       @x = x || @x
       @y = y || @y
       @direction = direction || @direction
-      @table = table || @table
     end
 
     def idle?
