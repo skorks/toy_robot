@@ -18,7 +18,7 @@ module RobotApplication
         end
 
         def execute
-          robot.update_position(**next_position) if table.contains_coordinates?(**next_position)
+          robot.update_position(**next_position) if table.valid_position?(**next_position)
         end
       end
 

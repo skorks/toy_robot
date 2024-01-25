@@ -42,4 +42,28 @@ RSpec.describe RobotApplication::Table do
       expect(table.contains_coordinates?(x: 0, y: height + 1)).to be_falsy
     end
   end
+
+  describe "#valid_position?" do
+    it "returns true when coordinates are within the table boundaries" do
+      expect(table.valid_position?(x: 5, y: 2)).to be_truthy
+    end
+
+    it "returns false when x is less than 0" do
+      expect(table.valid_position?(x: -1, y: 2)).to be_falsy
+    end
+
+    it "returns false when y is less than 0" do
+      expect(table.valid_position?(x: 5, y: -1)).to be_falsy
+    end
+
+    it "returns false when x is greater than or equal to the table width" do
+      expect(table.valid_position?(x: width, y: 2)).to be_falsy
+      expect(table.valid_position?(x: width + 1, y: 2)).to be_falsy
+    end
+
+    it "returns false when y is greater than or equal to the table height" do
+      expect(table.valid_position?(x: 5, y: height)).to be_falsy
+      expect(table.valid_position?(x: 5, y: height + 1)).to be_falsy
+    end
+  end
 end

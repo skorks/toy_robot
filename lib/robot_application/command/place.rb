@@ -7,7 +7,7 @@ module RobotApplication
   module Command
     class Place < Base
       def execute(robot:, table:)
-        if table.contains_coordinates?(x: x, y: y) && FacingDirection.valid?(direction)
+        if table.valid_position?(x: x, y: y) && FacingDirection.valid?(direction)
           robot.update_position(
             x: x,
             y: y,
