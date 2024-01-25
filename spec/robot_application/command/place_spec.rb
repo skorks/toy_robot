@@ -16,12 +16,12 @@ RSpec.describe RobotApplication::Command::Place do
 
     before do
       allow(robot).to receive(:update_position)
+      allow(robot).to receive(:update_direction)
     end
 
     it "sets the position on the robot" do
-      expect(robot).to receive(:update_position).with(
-        x: x.to_i,
-        y: y.to_i,
+      expect(robot).to receive(:update_position).with(x: x.to_i, y: y.to_i)
+      expect(robot).to receive(:update_direction).with(
         direction: RobotApplication::FacingDirection[:south],
       )
       execute
@@ -58,9 +58,8 @@ RSpec.describe RobotApplication::Command::Place do
       let(:direction) { "SOUTH     " }
 
       it "sets the position on the robot" do
-        expect(robot).to receive(:update_position).with(
-          x: x.to_i,
-          y: y.to_i,
+        expect(robot).to receive(:update_position).with(x: x.to_i, y: y.to_i)
+        expect(robot).to receive(:update_direction).with(
           direction: RobotApplication::FacingDirection[:south],
         )
         execute

@@ -6,7 +6,7 @@ module RobotApplication
   module Command
     class TurnRight < Base
       def execute(robot:, table:)
-        robot.update_position(direction: (robot.direction + 1) % 4) unless robot.idle?
+        robot.update_direction(direction: (robot.direction + 1) % 4) unless robot.idle?
       end
     end
   end

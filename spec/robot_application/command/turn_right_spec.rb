@@ -23,14 +23,14 @@ RSpec.describe RobotApplication::Command::TurnRight do
     let(:execute) { command.execute(robot: robot, table: table) }
 
     before do
-      allow(robot).to receive(:update_position)
+      allow(robot).to receive(:update_direction)
     end
 
     context "when facing NORTH" do
       let(:direction) { "NORTH" }
 
       it "turns the robot right correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:east])
+        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:east])
         execute
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe RobotApplication::Command::TurnRight do
       let(:direction) { "EAST" }
 
       it "turns the robot right correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:south])
+        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:south])
         execute
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe RobotApplication::Command::TurnRight do
       let(:direction) { "SOUTH" }
 
       it "turns the robot right correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:west])
+        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:west])
         execute
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe RobotApplication::Command::TurnRight do
       let(:direction) { "WEST" }
 
       it "turns the robot right correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:north])
+        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:north])
         execute
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe RobotApplication::Command::TurnRight do
       let(:robot_idle) { true }
 
       it "doesn't try to set the facing direction" do
-        expect(robot).to_not receive(:update_position)
+        expect(robot).to_not receive(:update_direction)
         execute
       end
     end

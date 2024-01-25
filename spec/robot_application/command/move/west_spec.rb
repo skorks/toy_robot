@@ -4,11 +4,8 @@ RSpec.describe RobotApplication::Command::Move::West do
   let(:move) { described_class.new(robot: robot, table: table) }
   let(:robot) do
     RobotApplication::Robot.new.tap do |robot|
-      robot.update_position(
-        x: x,
-        y: y,
-        direction: direction,
-      )
+      robot.update_position(x: x, y: y)
+      robot.update_direction(direction: direction)
     end
   end
   let(:x) { 1 }

@@ -8,11 +8,7 @@ RSpec.describe RobotApplication::Robot do
 
   describe "#update_position" do
     before do
-      robot.update_position(
-        x: x,
-        y: y,
-        direction: direction,
-      )
+      robot.update_position(x: x, y: y)
     end
 
     it "can update the x coordinate" do
@@ -22,25 +18,15 @@ RSpec.describe RobotApplication::Robot do
     it "can update the y coordinate" do
       expect(robot.y).to eq y
     end
+  end
+
+  describe "#update_direction" do
+    before do
+      robot.update_direction(direction: direction)
+    end
 
     it "can update the direction" do
       expect(robot.direction).to eq direction
-    end
-
-    context "when only some of the parameters are supplied" do
-      let(:new_x) { 200 }
-
-      before do
-        robot.update_position(x: new_x)
-      end
-
-      it "retains the old values for the other parameters" do
-        expect(robot.y).to eq y
-      end
-
-      it "sets the given parameters" do
-        expect(robot.x).to eq new_x
-      end
     end
   end
 
@@ -51,9 +37,10 @@ RSpec.describe RobotApplication::Robot do
       end
     end
 
-    context "when robot is aware of a table" do
+    context "when robot has all attributes" do
       before do
-        robot.update_position(x: x, y: y, direction: direction)
+        robot.update_position(x: x, y: y)
+        robot.update_direction(direction: direction)
       end
 
       it "is NOT considered to be idle" do

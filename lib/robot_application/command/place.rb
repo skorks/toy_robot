@@ -8,11 +8,8 @@ module RobotApplication
     class Place < Base
       def execute(robot:, table:)
         if table.valid_position?(x: x, y: y) && FacingDirection.valid?(direction)
-          robot.update_position(
-            x: x,
-            y: y,
-            direction: FacingDirection[direction],
-          )
+          robot.update_position(x: x, y: y)
+          robot.update_direction(direction: FacingDirection[direction])
         else
           $stderr.puts "Invalid coordinates or facing direction given for #{type} command"
         end
