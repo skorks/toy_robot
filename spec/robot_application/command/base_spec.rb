@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::RobotCommand do
+RSpec.describe RobotApplication::Command::Base do
   let(:command) { described_class.new(type: "", arguments: []) }
 
   describe "#execute" do

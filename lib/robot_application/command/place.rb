@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "robot_application/command_factory/robot_command"
+require "robot_application/command/base"
 require "robot_application/facing_direction"
 
 module RobotApplication
-  class CommandFactory
-    class PlaceRobotCommand < RobotCommand
+  module Command
+    class Place < Base
       def execute(robot:, table:)
         if table.contains_coordinates?(x: x, y: y) && FacingDirection.valid?(direction)
           robot.update_position(

@@ -3,8 +3,8 @@
 require "robot_application/error"
 
 module RobotApplication
-  class CommandFactory
-    class RobotCommand
+  module Command
+    class Base
       attr_reader :type, :arguments
 
       def initialize(type:, arguments: [])

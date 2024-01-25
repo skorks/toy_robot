@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
+RSpec.describe RobotApplication::Command::Move do
   let(:command) { described_class.new(type: type, arguments: []) }
   let(:type) { "LEFT" }
   let(:x) { "1" }
@@ -28,10 +28,10 @@ RSpec.describe RobotApplication::CommandFactory::MoveRobotCommand do
     let(:west_move) { double "west_move", execute: nil }
 
     before do
-      allow(RobotApplication::CommandFactory::Moves::NorthMove).to receive(:new).and_return(north_move)
-      allow(RobotApplication::CommandFactory::Moves::EastMove).to receive(:new).and_return(east_move)
-      allow(RobotApplication::CommandFactory::Moves::SouthMove).to receive(:new).and_return(south_move)
-      allow(RobotApplication::CommandFactory::Moves::WestMove).to receive(:new).and_return(west_move)
+      allow(RobotApplication::Command::Move::North).to receive(:new).and_return(north_move)
+      allow(RobotApplication::Command::Move::East).to receive(:new).and_return(east_move)
+      allow(RobotApplication::Command::Move::South).to receive(:new).and_return(south_move)
+      allow(RobotApplication::Command::Move::West).to receive(:new).and_return(west_move)
     end
 
     context "when facing NORTH" do

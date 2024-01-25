@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::Moves::SouthMove do
+RSpec.describe RobotApplication::Command::Move::West do
   let(:move) { described_class.new(robot: robot, table: table) }
   let(:robot) do
     RobotApplication::Robot.new.tap do |robot|
@@ -14,27 +14,27 @@ RSpec.describe RobotApplication::CommandFactory::Moves::SouthMove do
   end
   let(:x) { 1 }
   let(:y) { 2 }
-  let(:direction) { RobotApplication::FacingDirection[:south] }
+  let(:direction) { RobotApplication::FacingDirection[:west] }
   let(:table) { RobotApplication::Table.new(width: width, height: height) }
   let(:width) { 5 }
   let(:height) { 6 }
 
   describe "#execute" do
-    context "when the robot is NOT already at the south edge" do
-      let(:y) { 1 }
+    context "when the robot is NOT already at the west edge" do
+      let(:x) { 1 }
 
-      it "decrements the robot's y coordinate" do
+      it "decrements the robot's x coordinate" do
         move.execute
-        expect(robot.y).to eq (y - 1)
+        expect(robot.x).to eq (x - 1)
       end
     end
 
-    context "when the robot is already at the south edge" do
-      let(:y) { 0 }
+    context "when the robot is already at the west edge" do
+      let(:x) { 0 }
 
-      it "does not decrement the robot's y coordinate" do
+      it "does not decrement the robot's x coordinate" do
         move.execute
-        expect(robot.y).to eq (y)
+        expect(robot.x).to eq (x)
       end
     end
   end

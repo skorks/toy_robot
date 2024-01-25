@@ -12,7 +12,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:arguments) { "arguments" }
 
       it "returns the correct command type" do
-        expect(build.class).to eq RobotApplication::CommandFactory::PlaceRobotCommand
+        expect(build.class).to eq RobotApplication::Command::Place
       end
 
       it "return a command with the right arguments" do
@@ -24,7 +24,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:type) { :move }
 
       it "returns the correct command type" do
-        expect(build.class).to eq RobotApplication::CommandFactory::MoveRobotCommand
+        expect(build.class).to eq RobotApplication::Command::Move
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:type) { "LEFT" }
 
       it "returns the correct command type" do
-        expect(build.class).to eq RobotApplication::CommandFactory::TurnLeftRobotCommand
+        expect(build.class).to eq RobotApplication::Command::TurnLeft
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:type) { "RIGHT" }
 
       it "returns the correct command type" do
-        expect(build.class).to eq RobotApplication::CommandFactory::TurnRightRobotCommand
+        expect(build.class).to eq RobotApplication::Command::TurnRight
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:type) { "REPORT" }
 
       it "returns the correct command type" do
-        expect(build.class).to eq RobotApplication::CommandFactory::ReportRobotCommand
+        expect(build.class).to eq RobotApplication::Command::Report
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe RobotApplication::CommandFactory do
       let(:type) { "foobar" }
 
       it "returns a null command" do
-        expect(build.class).to eq RobotApplication::CommandFactory::NullRobotCommand
+        expect(build.class).to eq RobotApplication::Command::Null
       end
     end
   end

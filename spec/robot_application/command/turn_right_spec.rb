@@ -1,8 +1,8 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::TurnLeftRobotCommand do
+RSpec.describe RobotApplication::Command::TurnRight do
   let(:command) { described_class.new(type: type, arguments: []) }
-  let(:type) { "LEFT" }
+  let(:type) { "RIGHT" }
   let(:x) { "1" }
   let(:y) { "2" }
   let(:direction) { "SOUTH" }
@@ -29,25 +29,7 @@ RSpec.describe RobotApplication::CommandFactory::TurnLeftRobotCommand do
     context "when facing NORTH" do
       let(:direction) { "NORTH" }
 
-      it "turns the robot left correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:west])
-        execute
-      end
-    end
-
-    context "when facing WEST" do
-      let(:direction) { "WEST" }
-
-      it "turns the robot left correctly" do
-        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:south])
-        execute
-      end
-    end
-
-    context "when facing SOUTH" do
-      let(:direction) { "SOUTH" }
-
-      it "turns the robot left correctly" do
+      it "turns the robot right correctly" do
         expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:east])
         execute
       end
@@ -56,8 +38,26 @@ RSpec.describe RobotApplication::CommandFactory::TurnLeftRobotCommand do
     context "when facing EAST" do
       let(:direction) { "EAST" }
 
-      it "turns the robot left correctly" do
-        expect(robot).to receive(:update_position).with(direction:   RobotApplication::FacingDirection[:north])
+      it "turns the robot right correctly" do
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:south])
+        execute
+      end
+    end
+
+    context "when facing SOUTH" do
+      let(:direction) { "SOUTH" }
+
+      it "turns the robot right correctly" do
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:west])
+        execute
+      end
+    end
+
+    context "when facing WEST" do
+      let(:direction) { "WEST" }
+
+      it "turns the robot right correctly" do
+        expect(robot).to receive(:update_position).with(direction: RobotApplication::FacingDirection[:north])
         execute
       end
     end

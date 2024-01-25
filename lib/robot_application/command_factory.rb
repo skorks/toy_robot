@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require "robot_application/command_factory/place_robot_command"
-require "robot_application/command_factory/move_robot_command"
-require "robot_application/command_factory/turn_left_robot_command"
-require "robot_application/command_factory/turn_right_robot_command"
-require "robot_application/command_factory/report_robot_command"
-require "robot_application/command_factory/null_robot_command"
+require "robot_application/command/place"
+require "robot_application/command/move"
+require "robot_application/command/turn_left"
+require "robot_application/command/turn_right"
+require "robot_application/command/report"
+require "robot_application/command/null"
 
 module RobotApplication
   class CommandFactory
     COMMAND_MAPPING = {
-      place: PlaceRobotCommand,
-      move: MoveRobotCommand,
-      left: TurnLeftRobotCommand,
-      right: TurnRightRobotCommand,
-      report: ReportRobotCommand,
+      place: RobotApplication::Command::Place,
+      move: RobotApplication::Command::Move,
+      left: RobotApplication::Command::TurnLeft,
+      right: RobotApplication::Command::TurnRight,
+      report: RobotApplication::Command::Report,
     }.freeze
 
     def build(type:, arguments: [])
@@ -26,8 +26,12 @@ module RobotApplication
       else
         # we can invert this dependency if we want to test it, etc.
         $stderr.puts "Invalid command given #{type.to_s.upcase}"
-        NullRobotCommand.new(type: type, arguments: arguments)
+        RobotApplication::Command::Null.new(type: type, arguments: arguments)
       end
     end
   end
 end
+
+        # class_prefix = FacingDirection.name_for(robot.direction).downcase.capitalize
+        # class_name = RobotApplication::CommandFactory::Moves.const_get("#{class_prefix}Move")
+        # class_name.new(robot: robot, table: table).execute

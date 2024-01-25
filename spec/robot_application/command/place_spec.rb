@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::PlaceRobotCommand do
+RSpec.describe RobotApplication::Command::Place do
   let(:command) { described_class.new(type: type, arguments: [x,y,direction]) }
   let(:type) { "PLACE" }
   let(:x) { "1" }

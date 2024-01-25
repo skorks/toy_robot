@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::ReportRobotCommand do
+RSpec.describe RobotApplication::Command::Report do
   let(:command) { described_class.new(type: type, arguments: []) }
   let(:type) { "REPORT" }
   let(:x) { "1" }

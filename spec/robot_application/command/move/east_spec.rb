@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::CommandFactory::Moves::EastMove do
+RSpec.describe RobotApplication::Command::Move::East do
   let(:move) { described_class.new(robot: robot, table: table) }
   let(:robot) do
     RobotApplication::Robot.new.tap do |robot|
