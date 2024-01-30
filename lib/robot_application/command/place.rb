@@ -18,15 +18,11 @@ module RobotApplication
       private
 
       def x
-        Integer(arguments[0])
-      rescue StandardError
-        -1
+        @x ||= Utils::Integer.parse(value: arguments[0], default: -1)
       end
 
       def y
-        Integer(arguments[1])
-      rescue StandardError
-        -1
+        @y ||= Utils::Integer.parse(value: arguments[1], default: -1)
       end
 
       def direction
