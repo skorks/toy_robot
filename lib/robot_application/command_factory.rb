@@ -1,37 +1,51 @@
 # frozen_string_literal: true
 
-require "robot_application/command/place"
-require "robot_application/command/move"
-require "robot_application/command/turn_left"
-require "robot_application/command/turn_right"
-require "robot_application/command/report"
-require "robot_application/command/null"
+# automatically require all commands in command folder except the base class
+Dir[File.join(__dir__, "command", "*.rb")].each { |file| require file unless file.include?("base.rb") }
 
 module RobotApplication
   class CommandFactory
-    COMMAND_MAPPING = {
-      place: RobotApplication::Command::Place,
-      move: RobotApplication::Command::Move,
-      left: RobotApplication::Command::TurnLeft,
-      right: RobotApplication::Command::TurnRight,
-      report: RobotApplication::Command::Report,
-    }.freeze
-
     def build(type:, arguments: [])
-      command_type_symbol = type.downcase.to_sym
-      command_class = COMMAND_MAPPING[command_type_symbol]
+      CommandClassService.new(type:).call.new(type:, arguments:)
+    end
 
-      if command_class
-        command_class.new(type: command_type_symbol, arguments: arguments)
-      else
-        # we can invert this dependency if we want to test it, etc.
-        $stderr.puts "Invalid command given #{type.to_s.upcase}"
-        RobotApplication::Command::Null.new(type: type, arguments: arguments)
+    class CommandClassService
+      COMMAND_MAPPING = {
+        left: RobotApplication::Command::TurnLeft,
+        right: RobotApplication::Command::TurnRight,
+      }.freeze
+
+      def initialize(type:)
+        @type = type
+      end
+
+      def call
+        command_class_by_convention || command_class_by_lookup || null_command_class
+      end
+
+      private
+
+      def command_class_by_convention
+        if RobotApplication::Command.const_defined?(classified_command_type)
+          RobotApplication::Command.const_get(classified_command_type)
+        end
+      end
+
+      def command_class_by_lookup
+        COMMAND_MAPPING[command_type_symbol]
+      end
+
+      def null_command_class
+        RobotApplication::Command::NullLogger
+      end
+
+      def classified_command_type
+        @classified_command_type ||= command_type_symbol.to_s.downcase.capitalize
+      end
+
+      def command_type_symbol
+        @command_type_symbol ||= @type.downcase.to_sym
       end
     end
   end
 end
-
-        # class_prefix = FacingDirection.name_for(robot.direction).downcase.capitalize
-        # class_name = RobotApplication::CommandFactory::Moves.const_get("#{class_prefix}Move")
-        # class_name.new(robot: robot, table: table).execute

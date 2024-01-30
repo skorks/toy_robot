@@ -55,8 +55,8 @@ RSpec.describe RobotApplication::CommandFactory do
     context "when type is an invalid command" do
       let(:type) { "foobar" }
 
-      it "returns a null command" do
-        expect(build.class).to eq RobotApplication::Command::Null
+      it "returns a null logger command" do
+        expect(build.class).to eq RobotApplication::Command::NullLogger
       end
     end
   end
