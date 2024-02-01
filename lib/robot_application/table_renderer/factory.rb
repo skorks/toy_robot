@@ -19,9 +19,9 @@ module RobotApplication
       end
 
       def build(type:)
-        table_rederer_key = (type || DEFAULT_RENDERER_KEY).downcase.to_sym
-        table_rederer_class = MAPPING[table_rederer_key] || MAPPING[:null]
-        table_rederer_class.new
+        table_renderer_key = (type || DEFAULT_RENDERER_KEY).downcase.to_sym
+        table_renderer_class = MAPPING[table_renderer_key] || MAPPING[:null]
+        table_renderer_class.new
       end
     end
   end
