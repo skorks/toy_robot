@@ -38,6 +38,7 @@ module RobotApplication
           print " #{robot_char_mapping[@robot.direction]} "
         end
 
+        # Draws the table with the robot's position highlighted.
         def draw_table
           (@table.height - 1).downto(0) do |row|
             row_separator

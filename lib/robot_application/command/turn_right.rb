@@ -5,9 +5,10 @@ require "robot_application/command/base"
 module RobotApplication
   module Command
     class TurnRight < Base
+      prepend Base::EnsureRobotPlaced
+
       def execute(dependency_container:)
         robot = dependency_container.robot
-        return if robot.idle?
         robot.update_direction(direction: (robot.direction + 90) % 360)
       end
     end

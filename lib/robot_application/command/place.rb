@@ -12,22 +12,22 @@ module RobotApplication
           robot.update_position(x: x, y: y)
           robot.update_direction(direction: compass[direction])
         else
-          $stderr.puts "Invalid coordinates or facing direction given for #{type} command"
+          $stderr.puts "Invalid coordinates or facing direction given for #{@type} command"
         end
       end
 
       private
 
       def x
-        @x ||= Utils::Integer.parse(value: arguments[0], default: -1)
+        @x ||= Utils::Integer.parse(value: @arguments[0], default: -1)
       end
 
       def y
-        @y ||= Utils::Integer.parse(value: arguments[1], default: -1)
+        @y ||= Utils::Integer.parse(value: @arguments[1], default: -1)
       end
 
       def direction
-        @direction ||= arguments[2].strip
+        @direction ||= @arguments[2].strip
       end
     end
   end

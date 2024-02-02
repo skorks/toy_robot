@@ -14,10 +14,6 @@ RSpec.describe RobotApplication::CommandFactory do
       it "returns the correct command type" do
         expect(build.class).to eq RobotApplication::Command::Place
       end
-
-      it "return a command with the right arguments" do
-        expect(build.arguments).to eq arguments
-      end
     end
 
     context "when type is a MOVE command" do

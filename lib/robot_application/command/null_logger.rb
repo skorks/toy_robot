@@ -6,7 +6,7 @@ module RobotApplication
   module Command
     class NullLogger < Base
       def execute(dependency_container:)
-        $stderr.puts "Invalid command given #{type.upcase}"
+        $stderr.puts "Invalid command given #{@type.upcase}"
       end
     end
   end

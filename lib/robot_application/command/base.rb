@@ -5,7 +5,12 @@ require "robot_application/error"
 module RobotApplication
   module Command
     class Base
-      attr_reader :type, :arguments
+      module EnsureRobotPlaced
+        def execute(dependency_container:)
+          return if dependency_container.robot.idle?
+          super
+        end
+      end
 
       def initialize(type:, arguments: [])
         @type = type
