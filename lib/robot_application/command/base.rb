@@ -12,7 +12,7 @@ module RobotApplication
         @arguments = arguments
       end
 
-      def execute(robot:, table:)
+      def execute(dependency_container:)
         raise Error, "Base class #{self.class.name} should not be used directly"
       end
     end

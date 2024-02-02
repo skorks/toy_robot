@@ -1,8 +1,9 @@
 require "spec_helper"
 
 RSpec.describe RobotApplication::Command::Move::Base do
-  let(:move) { described_class.new(robot: robot, table: table) }
+  let(:move) { described_class.new(dependency_container:) }
 
+  let(:dependency_container) { double("dependency_container", robot: robot, table: table) }
   let(:robot) { double("robot", x: x, y: y, update_position: nil) }
   let(:table) { double("table", valid_position?: true) }
   let(:x) { 1 }

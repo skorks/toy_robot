@@ -2,9 +2,10 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::Robot do
   let(:robot) { described_class.new }
+  let(:compass) { RobotApplication::Compass.new }
   let(:x) { 1 }
   let(:y) { 2 }
-  let(:direction) { RobotApplication::FacingDirection[:north] }
+  let(:direction) { compass[:north] }
 
   describe "#update_position" do
     before do

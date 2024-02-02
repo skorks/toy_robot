@@ -2,6 +2,8 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::Command::Report do
   let(:command) { described_class.new(type: type, arguments: []) }
+  let(:dependency_container) { double("dependency_container", robot: robot, table: table, compass: compass, fetch: [robot, compass]) }
+  let(:compass) { RobotApplication::Compass.new }
   let(:type) { "REPORT" }
   let(:x) { "1" }
   let(:y) { "2" }
@@ -10,7 +12,7 @@ RSpec.describe RobotApplication::Command::Report do
     double "robot", {
       x: x,
       y: y,
-      direction: RobotApplication::FacingDirection.value_for(direction),
+      direction: compass.value_for(direction),
       idle?: robot_idle,
     }
   end
@@ -20,7 +22,7 @@ RSpec.describe RobotApplication::Command::Report do
   let(:robot_idle) { false }
 
   describe "#execute" do
-    let(:execute) { command.execute(robot: robot, table: table) }
+    let(:execute) { command.execute(dependency_container:) }
 
     it "outputs the position of the robot" do
       expect($stdout).to receive(:puts).with("#{x},#{y},#{direction}")

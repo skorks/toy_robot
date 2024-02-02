@@ -2,6 +2,8 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::Command::TurnLeft do
   let(:command) { described_class.new(type: type, arguments: []) }
+  let(:dependency_container) { double("dependency_container", robot: robot, table: table, compass: compass) }
+  let(:compass) { RobotApplication::Compass.new }
   let(:type) { "LEFT" }
   let(:x) { "1" }
   let(:y) { "2" }
@@ -10,7 +12,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
     double "robot", {
       x: x,
       y: y,
-      direction: RobotApplication::FacingDirection.value_for(direction),
+      direction: compass.value_for(direction),
       idle?: robot_idle,
     }
   end
@@ -20,7 +22,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
   let(:robot_idle) { false }
 
   describe "#execute" do
-    let(:execute) { command.execute(robot: robot, table: table) }
+    let(:execute) { command.execute(dependency_container:) }
 
     before do
       allow(robot).to receive(:update_direction)
@@ -30,7 +32,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
       let(:direction) { "NORTH" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:west])
+        expect(robot).to receive(:update_direction).with(direction: compass[:west])
         execute
       end
     end
@@ -39,7 +41,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
       let(:direction) { "WEST" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:south])
+        expect(robot).to receive(:update_direction).with(direction: compass[:south])
         execute
       end
     end
@@ -48,7 +50,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
       let(:direction) { "SOUTH" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:update_direction).with(direction: RobotApplication::FacingDirection[:east])
+        expect(robot).to receive(:update_direction).with(direction: compass[:east])
         execute
       end
     end
@@ -57,7 +59,7 @@ RSpec.describe RobotApplication::Command::TurnLeft do
       let(:direction) { "EAST" }
 
       it "turns the robot left correctly" do
-        expect(robot).to receive(:update_direction).with(direction:   RobotApplication::FacingDirection[:north])
+        expect(robot).to receive(:update_direction).with(direction: compass[:north])
         execute
       end
     end

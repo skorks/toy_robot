@@ -5,7 +5,7 @@ require "robot_application/command/base"
 module RobotApplication
   module Command
     class Null < Base
-      def execute(robot:, table:); end
+      def execute(dependency_container:); end
     end
   end
 end

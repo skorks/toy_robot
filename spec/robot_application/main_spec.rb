@@ -4,10 +4,17 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::Main do
   let(:main) do
-    described_class.new(table_width: width, table_height: height,
-    input_reader: input_reader,
-    input_parser: input_parser,
-    table_renderer: table_renderer)
+    described_class.new(dependency_container:)
+  end
+  let(:dependency_container) do
+    RobotApplication::DependencyContainer.new({
+      width: width,
+      height: height,
+      renderer: :null,
+      table_renderer: table_renderer,
+      input_reader: input_reader,
+      input_parser: input_parser,
+    })
   end
   let(:width) { 7 }
   let(:height) { 8 }
@@ -15,7 +22,7 @@ RSpec.describe RobotApplication::Main do
   let(:input_string1) { "input_string1" }
   let(:input_string2) { "input_string2" }
   let(:input_parser) { double "input_parser", parse: [command] }
-  let(:table_renderer) { RobotApplication::TableRenderer::Null.new }
+  let(:table_renderer) { double "table_renderer", render: nil }
   let(:command) { double "command", execute: nil }
 
   let(:robot) { double "robot" }
@@ -34,12 +41,12 @@ RSpec.describe RobotApplication::Main do
     end
 
     it "executes a command with robot and table for every input" do
-      expect(command).to receive(:execute).with(robot: robot, table: table).twice
+      expect(command).to receive(:execute).with(dependency_container:).twice
       main.execute
     end
 
     it "renders the table for every input" do
-      expect(table_renderer).to receive(:render).with(table: table, robot: robot).twice
+      expect(table_renderer).to receive(:render).with(dependency_container:).twice
       main.execute
     end
   end

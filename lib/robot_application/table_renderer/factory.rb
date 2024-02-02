@@ -20,7 +20,7 @@ module RobotApplication
 
       def build(type:)
         table_renderer_key = (type || DEFAULT_RENDERER_KEY).downcase.to_sym
-        table_renderer_class = MAPPING[table_renderer_key] || MAPPING[:null]
+        table_renderer_class = MAPPING[table_renderer_key] || MAPPING[DEFAULT_RENDERER_KEY]
         table_renderer_class.new
       end
     end

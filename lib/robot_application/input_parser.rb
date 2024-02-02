@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require "robot_application/command_factory"
-
 module RobotApplication
   class InputParser
     attr_reader :command_factory
 
-    def initialize(command_factory: CommandFactory.new)
+    def initialize(command_factory:)
       @command_factory = command_factory
     end
 

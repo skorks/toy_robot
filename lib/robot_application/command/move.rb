@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "robot_application/command/base"
+require "robot_application/compass"
 
 module RobotApplication
   module Command
@@ -8,9 +9,9 @@ module RobotApplication
       class Base
         attr_reader :robot, :table
 
-        def initialize(robot:, table:)
-          @robot = robot
-          @table = table
+        def initialize(dependency_container:)
+          @robot = dependency_container.robot
+          @table = dependency_container.table
         end
 
         def next_position
@@ -46,16 +47,17 @@ module RobotApplication
         end
       end
 
-      def execute(robot:, table:)
+      def execute(dependency_container:)
+        robot = dependency_container.robot
         return if robot.idle?
 
         # using naming convention here to find and instantiate relavant
         # classes that implement direction moves, could use a lookup table
         # similar to what we do in CommandFactory, if we want complete
         # control of class names
-        class_prefix = FacingDirection.name_for(robot.direction).downcase.capitalize
+        class_prefix = Compass.new.name_for(robot.direction).downcase.capitalize
         class_name = RobotApplication::Command::Move.const_get(class_prefix)
-        class_name.new(robot: robot, table: table).execute
+        class_name.new(dependency_container:).execute
       end
     end
   end

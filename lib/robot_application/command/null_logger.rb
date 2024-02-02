@@ -5,7 +5,7 @@ require "robot_application/command/base"
 module RobotApplication
   module Command
     class NullLogger < Base
-      def execute(robot:, table:)
+      def execute(dependency_container:)
         $stderr.puts "Invalid command given #{type.upcase}"
       end
     end

@@ -3,14 +3,15 @@
 require "spec_helper"
 
 RSpec.describe RobotApplication::Main do
-  let(:main) do
-    described_class.new(
-      table_width: width,
-      table_height: height,
+  let(:main) { described_class.new(dependency_container:) }
+  let(:dependency_container) do
+    RobotApplication::DependencyContainer.new({
+      width: width,
+      height: height,
+      renderer: :null,
       input_reader: input_reader,
-      input_parser: input_parser,
-      table_renderer: table_renderer,
-    )
+      input_parser_class: RobotApplication::InputParser,
+    })
   end
 
   let(:width) { 5 }
@@ -33,8 +34,6 @@ RSpec.describe RobotApplication::Main do
       "report", "left", "left", "report", "move", "report"
     ]
   end
-  let(:input_parser) { RobotApplication::InputParser.new }
-  let(:table_renderer) { RobotApplication::TableRenderer::Null.new }
   let(:output_io) { StringIO.new }
   let(:expected_output) do
     [

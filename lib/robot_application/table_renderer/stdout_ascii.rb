@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "robot_application/facing_direction"
-
 module RobotApplication
   module TableRenderer
     class StdoutAscii
-      def render(table:, robot:)
+      def render(dependency_container:)
+        robot = dependency_container.robot
         draw_table(
-          width: table.width,
-          height: table.height,
+          compass: dependency_container.compass,
+          width: dependency_container.table_width,
+          height: dependency_container.table_height,
           x: robot.x,
           y: robot.y,
           direction: robot.direction,
@@ -18,13 +18,13 @@ module RobotApplication
 
       private
 
-      def draw_table(width:, height:, x: -1, y: -1, direction: FacingDirection[:north])
+      def draw_table(compass:, width:, height:, x: -1, y: -1, direction:)
         (height - 1).downto(0) do |row|
           draw_row_separator(width)
           0.upto(width - 1) do |column|
             draw_column_separator
             if column == x && row == y
-              draw_robot_cell(direction: direction)
+              draw_robot_cell(compass:, direction:)
             else
               draw_empty_cell
             end
@@ -47,12 +47,12 @@ module RobotApplication
         print "   "
       end
 
-      def draw_robot_cell(direction: 0)
+      def draw_robot_cell(compass:, direction:)
         robot_char_mapping = {
-          FacingDirection[:north] => "^",
-          FacingDirection[:east] => ">",
-          FacingDirection[:south] => "v",
-          FacingDirection[:west] => "<",
+          compass[:north] => "^",
+          compass[:east] => ">",
+          compass[:south] => "v",
+          compass[:west] => "<",
         }
         print " #{robot_char_mapping[direction]} "
       end

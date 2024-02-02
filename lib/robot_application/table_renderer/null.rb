@@ -3,7 +3,7 @@
 module RobotApplication
   module TableRenderer
     class Null
-      def render(table:, robot:); end
+      def render(dependency_container:); end
     end
   end
 end

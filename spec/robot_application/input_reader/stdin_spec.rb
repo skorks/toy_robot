@@ -1,5 +1,7 @@
 require "spec_helper"
 
+require "robot_application/input_reader/stdin"
+
 RSpec.describe RobotApplication::InputReader::Stdin do
   let(:input_reader) { described_class.new(input_io: input_io) }
   let(:input_io) { StringIO.new("#{line1}\n#{line2}") }

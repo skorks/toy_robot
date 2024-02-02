@@ -2,6 +2,8 @@ require "spec_helper"
 
 RSpec.describe RobotApplication::Command::Place do
   let(:command) { described_class.new(type: type, arguments: [x,y,direction]) }
+  let(:dependency_container) { double("dependency_container", robot: robot, table: table, compass: compass, fetch: [robot, table, compass]) }
+  let(:compass) { RobotApplication::Compass.new }
   let(:type) { "PLACE" }
   let(:x) { "1" }
   let(:y) { "2" }
@@ -12,7 +14,7 @@ RSpec.describe RobotApplication::Command::Place do
   let(:height) { 6 }
 
   describe "#execute" do
-    let(:execute) { command.execute(robot: robot, table: table) }
+    let(:execute) { command.execute(dependency_container:) }
 
     before do
       allow(robot).to receive(:update_position)
@@ -22,7 +24,7 @@ RSpec.describe RobotApplication::Command::Place do
     it "sets the position on the robot" do
       expect(robot).to receive(:update_position).with(x: x.to_i, y: y.to_i)
       expect(robot).to receive(:update_direction).with(
-        direction: RobotApplication::FacingDirection[:south],
+        direction: compass[:south],
       )
       execute
     end
@@ -60,7 +62,7 @@ RSpec.describe RobotApplication::Command::Place do
       it "sets the position on the robot" do
         expect(robot).to receive(:update_position).with(x: x.to_i, y: y.to_i)
         expect(robot).to receive(:update_direction).with(
-          direction: RobotApplication::FacingDirection[:south],
+          direction: compass[:south],
         )
         execute
       end

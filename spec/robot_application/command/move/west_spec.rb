@@ -1,7 +1,9 @@
 require "spec_helper"
 
 RSpec.describe RobotApplication::Command::Move::West do
-  let(:move) { described_class.new(robot: robot, table: table) }
+  let(:move) { described_class.new(dependency_container:) }
+  let(:dependency_container) { double("dependency_container", robot: robot, table: table, compass: compass) }
+  let(:compass) { RobotApplication::Compass.new }
   let(:robot) do
     RobotApplication::Robot.new.tap do |robot|
       robot.update_position(x: x, y: y)
@@ -10,7 +12,7 @@ RSpec.describe RobotApplication::Command::Move::West do
   end
   let(:x) { 1 }
   let(:y) { 2 }
-  let(:direction) { RobotApplication::FacingDirection[:west] }
+  let(:direction) { compass[:west] }
   let(:table) { RobotApplication::Table.new(width: width, height: height) }
   let(:width) { 5 }
   let(:height) { 6 }
