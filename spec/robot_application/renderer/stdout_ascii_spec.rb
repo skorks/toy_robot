@@ -7,7 +7,9 @@ RSpec.describe RobotApplication::TableRenderer::StdoutAscii do
 
   describe "#render" do
     context "when valid inputs given" do
-      let(:dependency_container) { double(:dependency_container, table: table, robot: robot, compass: compass, table_width: 5, table_height: 5) }
+      let(:dependency_container) do
+        double(:dependency_container, table: table, robot: robot, compass: compass, fetch: [robot, table, compass])
+      end
       let(:table) { double(:table, width: 5, height: 5) }
       let(:robot) { double(:table, x: 0, y: 0, direction: :north, idle?: true) }
       let(:compass) { double(:compass, :[] => nil) }

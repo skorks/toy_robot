@@ -4,61 +4,55 @@ module RobotApplication
   module TableRenderer
     class StdoutAscii
       def render(dependency_container:)
-        robot = dependency_container.robot
-        draw_table(
-          compass: dependency_container.compass,
-          width: dependency_container.table_width,
-          height: dependency_container.table_height,
-          x: robot.x,
-          y: robot.y,
-          direction: robot.direction,
-        )
-        draw_idling_robot if robot.idle?
+        render_tool = RenderTool.new(dependency_container:)
+        render_tool.draw_table
+        render_tool.idling_robot
       end
 
-      private
-
-      def draw_table(compass:, width:, height:, x: -1, y: -1, direction:)
-        (height - 1).downto(0) do |row|
-          draw_row_separator(width)
-          0.upto(width - 1) do |column|
-            draw_column_separator
-            if column == x && row == y
-              draw_robot_cell(compass:, direction:)
-            else
-              draw_empty_cell
-            end
-          end
-          draw_column_separator(newline: true)
+      class RenderTool
+        def initialize(dependency_container:)
+          @dependency_container = dependency_container
+          @robot, @table, @compass = dependency_container.fetch(:robot, :table, :compass)
         end
-        draw_row_separator(width)
-      end
 
-      def draw_row_separator(width)
-        puts "-" * (width + 1 + (width * 3))
-      end
+        def row_separator
+          puts "-" * (@table.width + 1 + (@table.width * 3))
+        end
 
-      def draw_column_separator(newline: false)
-        print "|"
-        puts if newline
-      end
+        def column_separator(newline: false)
+          print "|"
+          puts if newline
+        end
 
-      def draw_empty_cell
-        print "   "
-      end
+        def empty_cell
+          print "   "
+        end
 
-      def draw_robot_cell(compass:, direction:)
-        robot_char_mapping = {
-          compass[:north] => "^",
-          compass[:east] => ">",
-          compass[:south] => "v",
-          compass[:west] => "<",
-        }
-        print " #{robot_char_mapping[direction]} "
-      end
+        def robot_cell
+          robot_char_mapping = {
+            @compass[:north] => "^",
+            @compass[:east] => ">",
+            @compass[:south] => "v",
+            @compass[:west] => "<",
+          }
+          print " #{robot_char_mapping[@robot.direction]} "
+        end
 
-      def draw_idling_robot
-        puts "__o__"
+        def draw_table
+          (@table.height - 1).downto(0) do |row|
+            row_separator
+            0.upto(@table.width - 1) do |column|
+              column_separator
+              column == @robot.x && row == @robot.y ? robot_cell : empty_cell
+            end
+            column_separator(newline: true)
+          end
+          row_separator
+        end
+
+        def idling_robot
+          puts "__o__" if @robot.idle?
+        end
       end
     end
   end
