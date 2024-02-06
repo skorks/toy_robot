@@ -4,8 +4,8 @@ require "robot_application/utils/integer"
 require "robot_application/robot"
 require "robot_application/table"
 require "robot_application/compass"
-require "robot_application/input_reader/readline"
-require "robot_application/input_parser"
+Dir[File.join(__dir__, "input_reader", "*.rb")].each { |file| require file unless file.include?("base.rb") }
+Dir[File.join(__dir__, "input_parser", "*.rb")].each { |file| require file unless file.include?("base.rb") }
 require "robot_application/table_renderer/factory"
 require "robot_application/command_factory"
 
@@ -66,7 +66,7 @@ module RobotApplication
         robot_class: Robot,
         compass_class: Compass,
         command_factory_class: CommandFactory,
-        input_parser_class: InputParser,
+        input_parser_class: InputParser::Default,
         input_reader_class: InputReader::Readline,
         input_reader: nil,
         input_parser: nil,

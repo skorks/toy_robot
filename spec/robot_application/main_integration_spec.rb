@@ -10,7 +10,7 @@ RSpec.describe RobotApplication::Main do
       height: height,
       renderer: :null,
       input_reader: input_reader,
-      input_parser_class: RobotApplication::InputParser,
+      input_parser_class: RobotApplication::InputParser::Default,
     })
   end
 

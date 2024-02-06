@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RobotApplication::InputParser do
+RSpec.describe RobotApplication::InputParser::Default do
   let(:input_parser) { described_class.new(command_factory: command_factory) }
   let(:command_factory) { double "command_factory", build: nil }
 

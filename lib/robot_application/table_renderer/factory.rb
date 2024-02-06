@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "robot_application/table_renderer/stdout_ascii"
-require "robot_application/table_renderer/null"
+Dir[File.join(__dir__, "*.rb")].each { |file| require file unless file.include?("factory.rb") }
 
 module RobotApplication
   module TableRenderer
